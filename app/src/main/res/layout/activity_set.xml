@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.android.yzd.ui.view.TitleBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setTitle="设置" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/set_clearCache"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/ripple_white"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="清除缓存"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/set_cacheSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:text="3.25M"
+                android:textColor="@color/black_90" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="10dp"
+            android:background="@color/background" />
+
+        <RelativeLayout
+            android:id="@+id/set_about"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/ripple_white"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="关于我们"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:textColor="@color/black_90" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="10dp"
+            android:background="@color/background" />
+
+        <RelativeLayout
+            android:id="@+id/set_callTel"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/ripple_white"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="客服电话"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/set_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:textColor="@color/black_90" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/set_versions"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/ripple_white"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="检查更新"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/versions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:textColor="@color/black_90" />
+
+            <TextView
+                android:id="@+id/find_new_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_red"
+                android:padding="3dp"
+                android:text="发现新版本"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="10dp"
+            android:background="@color/background" />
+
+        <RelativeLayout
+            android:id="@+id/set_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/ripple_white"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="意见反馈"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:textColor="@color/black_90" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/exit_login"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ripple_white"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="退出登录"
+        android:textColor="@color/red_30"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

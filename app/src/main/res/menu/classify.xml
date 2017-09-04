@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@mipmap/menu_refresh"
+        android:title="刷新" />
+    <item
+        android:id="@+id/menu_message"
+        android:icon="@mipmap/menu_classify"
+        android:title="消息" />
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@mipmap/menu_home"
+        android:title="首页" />
+</menu>

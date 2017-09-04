@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2FBDFC</color>
+    <color name="colorPrimaryDark">#2FBDFC</color>
+    <color name="colorAccent">#f8664f</color>
+
+    <color name="black_30">#333333</color>
+    <color name="black_60">#666666</color>
+    <color name="black_90">#999999</color>
+    <color name="black_67">#676961</color>
+    <color name="black_7a">#7a7876</color>
+    <color name="black_61">#616164</color>
+
+
+    <color name="red_32">#fc3232</color>
+    <color name="blue_17">#1789bb</color>
+    <color name="blue_cursor">#7ceeff</color>
+    <color name="blue_03">#03c6de</color>
+
+    <color name="background">#f6f6f6</color>
+    <color name="background_2">#ECECED</color>
+    <color name="background_3">#f5f5f5</color>
+    <color name="edit_background">#C0EAFC</color>
+
+    <color name="red">#FD5E63</color>
+    <color name="red_30">#F03030</color>
+    <color name="red_52">#Fb5252</color>
+    <color name="red_60">#FD7201</color>
+    <color name="orange">#FDAF3F</color>
+    <color name="orange_border">#f9b920</color>
+    <color name="white_30">#E4E4E4</color>
+    <color name="white">#ffffff</color>
+    <color name="white_6">#f6f6f6</color>
+
+
+    <color name="green">#2CD379</color>
+    <!--半透明-->
+    <color name="translucence_a">#A0000000</color>
+    <color name="translucence_b">#B0000000</color>
+    <color name="translucence_c">#C0000000</color>
+    <color name="translucence_d">#D0000000</color>
+</resources>

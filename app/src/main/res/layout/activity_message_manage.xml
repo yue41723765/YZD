@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_3"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.android.yzd.ui.view.TitleBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setBackground="@android:color/white"
+        app:setLeftImage="@mipmap/arrow_left_black"
+        app:setTitle="消息中心"
+        app:setTitleColor="@color/black_30" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <RelativeLayout
+            android:id="@+id/service_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/service_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/message_service" />
+
+            <TextView
+                android:id="@+id/service_number"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/service_image"
+                android:layout_marginLeft="-15dp"
+                android:layout_toRightOf="@+id/service_image"
+                android:background="@drawable/circle_red"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/service_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/service_image"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/service_image"
+                android:text="一站达客服"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/service_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/service_image"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/service_image"
+                android:text="点击查看你与客服的沟通记录"
+                android:textColor="@color/black_90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/service_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/service_title"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black_60"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/system_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/system_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/message" />
+
+            <TextView
+                android:id="@+id/system_number"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/system_image"
+                android:layout_marginLeft="-15dp"
+                android:layout_toRightOf="@+id/system_image"
+                android:background="@drawable/circle_red"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/system_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/system_image"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/system_image"
+                android:text="系统消息"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/system_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/system_image"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/system_image"
+                android:textColor="@color/black_90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/system_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/system_title"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black_60"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/order_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick">
+
+            <ImageView
+                android:id="@+id/order_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/message_order" />
+
+            <TextView
+                android:id="@+id/order_number"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignTop="@+id/order_image"
+                android:layout_marginLeft="-15dp"
+                android:layout_toRightOf="@+id/order_image"
+                android:background="@drawable/circle_red"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/order_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/order_image"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/order_image"
+                android:text="订单提醒"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/message_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/order_image"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/order_image"
+                android:textColor="@color/black_90"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/order_title"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black_60"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

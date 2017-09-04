@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">一站达</string>
+    <string name="home">首页</string>
+    <string name="classify">分类</string>
+    <string name="shoppingCart">购物车</string>
+    <string name="find">发现</string>
+    <string name="my">我的</string>
+
+
+    <string name="home_hot">热销产品</string>
+    <string name="home_recommend">全部分类</string>
+    <string name="home_favorable">订单管理</string>
+    <string name="home_integral">积分商城</string>
+    <string name="home_title_1">本周推荐</string>
+    <string name="home_title_2">好货优选</string>
+    <string name="home_title_3">精品推荐</string>
+    <string name="home_select_details">查看详情</string>
+
+    <string name="sc_title">购物车</string>
+    <string name="edit">编辑</string>
+    <string name="choose_all">全选</string>
+    <string name="total">合计:</string>
+    <string name="close_an_account">去结算</string>
+
+    <string name="find_title_1">精品推荐</string>
+    <string name="find_title_2">积分好礼</string>
+    <string name="find_title_3">更多好礼</string>
+
+    <string name="discount_coupon">优惠券</string>
+    <string name="collect">收藏</string>
+
+    <string name="my_order">我的订单</string>
+    <string name="my_all_order">全部订单</string>
+
+    <string name="my_wait_pay">待支付</string>
+    <string name="my_wait_delivery">待配送</string>
+    <string name="my_wait_getGoods">待收货</string>
+    <string name="my_accomplish">已完成</string>
+
+    <string name="my_wallet">我的钱包</string>
+    <string name="my_shopping_mall_store">积分商城</string>
+    <string name="bank_card">银行卡</string>
+    <string name="address_manage">收货地址管理</string>
+    <string name="setting">设置</string>
+
+    <string name="list_footer_loading">正在加载中…</string>
+    <string name="list_footer_network_error">点击重新加载</string>
+    <string name="list_footer_end">这是我的底线！</string>
+
+    <string name="pay_order_title">请选择支付方式</string>
+
+    <string name="my_grade_text">等级</string>
+    <string name="my_grade_integral">积分</string>
+    <string name="my_grade_convert">已兑换</string>
+</resources>

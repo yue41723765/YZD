@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingRight="10dp">
+
+    <ImageView
+        android:id="@+id/collect_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp" />
+
+    <TextView
+        android:id="@+id/collect_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/collect_image"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/collect_image"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="标题"
+        android:textColor="@color/black_30"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/collect_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/collect_title"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/collect_image"
+        android:text="购买人数"
+        android:textColor="@color/black_60"
+        android:textSize="10sp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/collect_image"
+        android:layout_toRightOf="@+id/collect_image"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/collect_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="￥998"
+            android:textColor="@color/red_30"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/cancel_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/round_line_black30"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="取消关注"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

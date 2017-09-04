@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/popup_capacity"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@mipmap/capacity"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="智能排序"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white_30" />
+
+    <RadioButton
+        android:id="@+id/popup_popuplarlity"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:drawableLeft="@mipmap/popuplarlity_moods"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="销量最高"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white_30" />
+
+    <RadioButton
+        android:id="@+id/popup_price"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:drawableLeft="@mipmap/price"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="价钱最低"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_90" />
+</RadioGroup>

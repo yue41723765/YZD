@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="154dp"
+    android:background="@android:color/white"
+    android:paddingLeft="13.3dp"
+    android:paddingRight="13.3dp">
+
+    <ImageView
+        android:id="@+id/item_recommend_image"
+        android:layout_width="113.3dp"
+        android:layout_height="113.3dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/item_recommend_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/item_recommend_image"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/item_recommend_image"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
+        android:textColor="@color/black_30"
+        android:textSize="12.7sp" />
+
+    <TextView
+        android:id="@+id/item_recommend_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_recommend_content"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/item_recommend_image"
+        android:text="地址"
+        android:textColor="@color/black_60"
+        android:textSize="11.3sp" />
+
+    <TextView
+        android:id="@+id/item_recommend_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_recommend_address"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/item_recommend_image"
+        android:text="两室两厅两卫"
+        android:textColor="@color/black_60"
+        android:textSize="11.3sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_recommend_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_recommend_image"
+        android:layout_below="@+id/item_recommend_room"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/item_recommend_image" />
+
+    <TextView
+        android:id="@+id/item_recommend_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="6.7dp"
+        android:layout_marginRight="7.3dp"
+        android:text="8700/月"
+        android:textSize="11.3sp" />
+
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/white"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/billDetail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textColor="@color/black_30"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/billDetail_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/billDetail_title"
+        android:layout_marginTop="10dp"
+        android:text="提现状态"
+        android:textColor="@color/black_60"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/billDetail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="时间"
+        android:textColor="@color/black_90"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/billDetail_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="金额"
+        android:textColor="@color/black_30"
+        android:textSize="16sp" />
+
+</RelativeLayout>

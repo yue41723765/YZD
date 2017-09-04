@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.android.yzd.ui.view.TitleBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setRightImage="@mipmap/show_black"
+        app:setRightImageVisibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/hot_show_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:src="@mipmap/show_black" />
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/hot_show_type"
+            android:background="@color/white_30" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_toLeftOf="@+id/hot_show_type"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp">
+
+            <RadioButton
+                android:id="@+id/hot_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@android:color/white"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/triangle_check"
+                android:gravity="right|center_vertical"
+                android:onClick="onClick"
+                android:text="热销分类"
+                android:textColor="@color/black30_red"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/hot_sort_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/triangle_check"
+                android:gravity="right|center_vertical"
+                android:onClick="onClick"
+                android:text="排序"
+                android:textColor="@color/black30_red"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/hot_screen_filtrate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/triangle_check"
+                android:gravity="right|center_vertical"
+                android:onClick="onClick"
+                android:text="筛选"
+                android:textColor="@color/black30_red"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/background" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_recycler_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_recycler_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/translucence"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/translucence_a"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="80dp"
+            android:src="@mipmap/empty"
+            android:visibility="gone" />
+    </FrameLayout>
+
+
+</LinearLayout>

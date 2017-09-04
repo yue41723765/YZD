@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/popup_hot"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@mipmap/hot_hot"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="热销产品"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white_30" />
+
+    <RadioButton
+        android:id="@+id/popup_new"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:drawableLeft="@mipmap/new_"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="最新推荐"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white_30" />
+
+    <RadioButton
+        android:id="@+id/popup_sale"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
+        android:button="@null"
+        android:drawableLeft="@mipmap/sale"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/check_check"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="特价优惠"
+        android:textColor="@color/black30_blue"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_90" />
+</RadioGroup>

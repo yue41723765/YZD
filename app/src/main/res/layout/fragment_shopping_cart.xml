@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/bottom_tools"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <CheckBox
+            android:id="@+id/cs_choose_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/pay_check"
+            android:drawablePadding="10dp"
+            android:text="@string/choose_all"
+            android:textColor="@color/black_30"
+            android:textSize="14sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/sc_status_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/cs_choose_all">
+
+            <TextView
+                android:id="@+id/sc_total_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/total"
+                android:textColor="@color/black_30"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/close_an_account"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/red_30"
+                android:gravity="center"
+                android:text="@string/close_an_account"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/sc_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/sc_total_title"
+                android:layout_marginLeft="10dp"
+                android:layout_toLeftOf="@+id/close_an_account"
+                android:layout_toRightOf="@+id/sc_total_title"
+                android:singleLine="true"
+                android:text="￥0"
+                android:textColor="@color/black_30" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/sc_status_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/cs_choose_all"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/add_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/round_line_black30"
+                android:text="移入收藏"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/line_round_red"
+                android:onClick="onClick"
+                android:text="删除"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sc_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_tools"
+        android:layout_below="@+id/top_tools"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/top_tools"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/sc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sc_title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:id="@+id/sc_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@mipmap/home_message" />
+
+        <TextView
+            android:id="@+id/sc_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/sc_message"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:text="@string/edit"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

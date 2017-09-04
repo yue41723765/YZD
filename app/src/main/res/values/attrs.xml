@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseTitleBar">
+        <attr name="setLeftImageVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="setRightImageVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="setRightTextVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="setTitleVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="setEditRlVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+        <attr name="setEditHintVisibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+            <enum name="gone" value="8" />
+        </attr>
+
+        <attr name="setBackground" format="reference|color" />
+        <attr name="setTitleColor" format="reference|color" />
+        <attr name="setRightTextColor" format="reference|color" />
+
+        <attr name="setLeftImage" format="reference" />
+        <attr name="setRightImage" format="reference" />
+        <attr name="setRightText" format="reference|string" />
+        <attr name="setTitle" format="reference|string" />
+        <attr name="setEditText" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_outside_color" format="color" />
+        <attr name="border_inside_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ToggleButton">
+        <attr name="offBorderColor" format="color|reference" />
+        <attr name="onColor" format="color|reference" />
+        <attr name="spotColor" format="color|reference" />
+        <attr name="offColor" format="color|reference" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="animate" format="boolean" />
+        <attr name="isDefaultOn" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ClearEditText">
+        <attr name="setBackGround" format="reference" />
+    </declare-styleable>
+</resources>

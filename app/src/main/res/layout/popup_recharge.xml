@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:text="请选择充值方式"
+        android:textColor="@color/black_30"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/background" />
+
+    <TextView
+        android:id="@+id/popup_alipay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ripple_white"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/alipay"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="20dp"
+        android:text="支付宝"
+        android:textColor="@color/black_30"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/background" />
+
+    <TextView
+        android:id="@+id/popup_wechate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ripple_white"
+        android:clickable="true"
+        android:drawableLeft="@mipmap/wechate"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:onClick="onClick"
+        android:paddingLeft="20dp"
+        android:text="微信"
+        android:textColor="@color/black_30"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/background" />
+
+    <TextView
+        android:id="@+id/add_other"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ripple_white"
+        android:gravity="center"
+        android:text="添加"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:textColor="@color/black_60"
+        android:textSize="14sp" />
+</LinearLayout>

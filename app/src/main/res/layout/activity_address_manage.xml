@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.yzd.ui.view.TitleBarView
+        android:id="@+id/tools_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:setTitle="收货地址管理" />
+
+    <Button
+        android:id="@+id/tools_bottom"
+        style="@style/button"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:text="新建地址" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/am_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tools_bottom"
+        android:layout_below="@+id/tools_title" />
+
+</RelativeLayout>

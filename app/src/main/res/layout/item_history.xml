@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/history_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="积分兑换"
+        android:textColor="@color/black_30"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/history_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/history_title"
+        android:layout_marginTop="10dp"
+        android:text="兑换成功"
+        android:textColor="@color/black_60"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/history_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/history_status"
+        android:layout_marginTop="20dp"
+        android:text="日期"
+        android:textColor="@color/black_90"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/history_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/black_30"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/integral_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/history_name"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black_30"
+        android:textSize="13sp" />
+
+</RelativeLayout>

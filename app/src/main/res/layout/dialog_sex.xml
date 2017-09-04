@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="15dp"
+
+            android:text="性别"
+            android:textColor="@color/black_30"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/privary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_white"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:text="保密"
+            android:textColor="@color/black_30"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_white"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:text="男"
+            android:textColor="@color/black_30"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_white"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:text="女"
+            android:textColor="@color/black_30"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

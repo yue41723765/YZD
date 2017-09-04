@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/main_tools"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/main_home"
+            style="@style/HomeRadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/home_check"
+            android:text="@string/home" />
+
+        <RadioButton
+            android:id="@+id/main_classify"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/classify"
+            android:text="@string/classify" />
+
+        <RadioButton
+            android:id="@+id/main_shoppingCart"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/shopping_car"
+            android:text="@string/shoppingCart" />
+
+        <RadioButton
+            android:id="@+id/main_find"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/find"
+            android:text="@string/find" />
+
+        <RadioButton
+            android:id="@+id/main_my"
+            style="@style/HomeRadioButton"
+            android:drawableTop="@drawable/my"
+            android:text="@string/my" />
+    </RadioGroup>
+
+
+    <FrameLayout
+        android:id="@+id/main_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_tools" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/main_tools"
+        android:background="@color/black_30" />
+
+</RelativeLayout>

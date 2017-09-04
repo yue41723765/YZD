@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardCornerRadius="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/relevance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/relevance"
+                    android:clickable="true"
+                    android:drawableLeft="@mipmap/relevance"
+                    android:drawablePadding="5dp"
+                    android:onClick="onClick"
+                    android:padding="5dp"
+                    android:text="取消关联"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp" />
+            </android.support.v7.widget.CardView>
+
+
+            <ImageView
+                android:id="@+id/bankCard_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/ccb" />
+
+            <TextView
+                android:id="@+id/bankCard_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/bankCard_image"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/bankCard_image"
+                android:text="建设银行"
+                android:textColor="@color/black_30"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/bankCard_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bankCard_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/bankCard_image"
+                android:text="储蓄卡"
+                android:textColor="@color/black_60"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/bankCard_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/bankCard_type"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="**** **** **** 1111"
+                android:textColor="@color/black_30"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
