@@ -32,6 +32,7 @@ public interface HttpService {
     @POST("index.php/Api/Sms/checkVerify")
     Observable<HttpResult> checkVerify(@FieldMap Map<String, String> param);
 
+
     @FormUrlEncoded
     @POST("index.php/Api/Article/userRegAgr")
     Observable<HttpResult> userRegAgr(@FieldMap Map<String, String> param);
@@ -57,6 +58,10 @@ public interface HttpService {
     @POST("index.php/Api/Member/memberCenter")
     Observable<HttpResult> memberCenter(@FieldMap Map<String, String> param);
 
+
+    @FormUrlEncoded
+    @POST("index.php/Api/Member/threeBindAccount")
+    Observable<HttpResult> bindPhone(@FieldMap Map<String, String> param);
 
     @FormUrlEncoded
     @POST("index.php/Api/Member/modifyAccount")

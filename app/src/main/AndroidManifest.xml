@@ -245,10 +245,21 @@
             android:name=".ui.activity.WebView"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activity.BindPhoneActivity"
+            android:screenOrientation="portrait" />
+        <!--微信-->
+        <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+             />
         <activity
             android:name=".ui.activity.PayResultActivity"
             android:screenOrientation="portrait" />
@@ -256,6 +267,8 @@
             android:name=".ui.activity.MyGradeActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".ui.activity.TestActivity"
+            android:screenOrientation="portrait"/>
         <service android:name=".tools.update.DownLoadService" />
 
         <receiver android:name=".wxapi.AppRegister">

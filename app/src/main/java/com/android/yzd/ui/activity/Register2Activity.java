@@ -77,7 +77,6 @@ public class Register2Activity extends BaseActivity {
                     Gson gson = new Gson();
                     UserInfoEntity infoEntity = gson.fromJson(gson.toJson(o), UserInfoEntity.class);
                     SPUtils.put(Register2Activity.this, K.USERINFO, infoEntity);
-                    //T.show(Register2Activity.this, "注册成功!", Toast.LENGTH_SHORT);
                     reminder.setText("注册成功");
                     reminder.setVisibility(View.VISIBLE);
                 } else {

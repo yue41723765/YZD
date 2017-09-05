@@ -90,6 +90,8 @@ public class RegisterActivity extends BaseActivity {
             //next.setText("验证");
             invite.setVisibility(View.INVISIBLE);
             bottom.setVisibility(View.GONE);
+        }else if (status_title==3){
+           next.setBackgroundResource(R.drawable.register_mobile_button);
         }
         getCodeListener = new SubscriberOnNextListener() {
             @Override
@@ -105,12 +107,12 @@ public class RegisterActivity extends BaseActivity {
         verifytCodeListener = new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                intent = new Intent(RegisterActivity.this, Register2Activity.class);
-                intent.putExtra(K.TITLE, status_title);
-                intent.putExtra(K.DATA, codeTel);
-                intent.putExtra(K.INVITE_CODE,inviteCode);
-                startActivity(intent);
-                finish();
+                    intent = new Intent(RegisterActivity.this, Register2Activity.class);
+                    intent.putExtra(K.TITLE, status_title);
+                    intent.putExtra(K.DATA, codeTel);
+                    intent.putExtra(K.INVITE_CODE,inviteCode);
+                    startActivity(intent);
+                    finish();
             }
         };
         userRegAgrListener = new SubscriberOnNextListener() {
@@ -170,7 +172,7 @@ public class RegisterActivity extends BaseActivity {
                 }
                 if (!U.isTel(codeTel)) {
                     //T.show(this, "手机号码出错", Toast.LENGTH_SHORT);
-                    reminder.setText("请出入手机号码");
+                    reminder.setText("手机号码出错");
                     reminder.setVisibility(View.VISIBLE);
                     return;
                 }
@@ -179,8 +181,10 @@ public class RegisterActivity extends BaseActivity {
                 params.put("account", codeTel);
                 if (status_title == 1) {
                     params.put("type", F.ACTIVATE);
-                } else {
+                } else if (status_title==2){
                     params.put("type", F.RETRIEVE);
+                }else {
+                    params.put("type", F.RE_BIND);
                 }
                 HttpMethods.getInstance(this).sendVerify(progressSubscriber, params);
                 break;

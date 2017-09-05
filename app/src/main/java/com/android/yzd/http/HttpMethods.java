@@ -173,7 +173,18 @@ public class HttpMethods {
     }
 
     /**
-     * 土可拉注册协议
+     * 绑定手机号
+     *
+     * @param subscriber
+     * @param param
+     */
+    public void bindPhone(Subscriber<HttpResult> subscriber, Map<String, String> param) {
+        Observable observable = httpService.bindPhone(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+    /**
+     * 注册协议
      *
      * @param subscriber
      */

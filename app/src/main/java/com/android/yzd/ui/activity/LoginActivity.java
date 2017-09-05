@@ -1,11 +1,9 @@
 package com.android.yzd.ui.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -22,7 +20,6 @@ import com.android.yzd.been.UserInfoEntity;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
 import com.android.yzd.tools.AppManager;
-import com.android.yzd.tools.FileUtil;
 import com.android.yzd.tools.K;
 import com.android.yzd.tools.L;
 import com.android.yzd.tools.SPUtils;
@@ -30,8 +27,10 @@ import com.android.yzd.tools.StatusBarUtil;
 import com.android.yzd.ui.custom.BaseActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -46,7 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,11 +79,8 @@ public class LoginActivity extends BaseActivity {
     //qq
     private Tencent mTencent; //qq主操作对象
     private BaseUiListener mIUiListener; //授权登录监听器
-    private IUiListener userInfoListener; //获取用户信息监听器
-    private String scope; //获取信息的范围参数
     private UserInfo mUserInfo; //qq用户信息
     SubscriberOnNextListener getQQLoginListener;
-
 
     private static final String TAG = "LoginActivity";
     private static final String QQ_APP_ID = "1105697773";//官方获取的APPID
@@ -92,6 +88,9 @@ public class LoginActivity extends BaseActivity {
     private IWXAPI api;
     //微信ID
     private static final String APP_ID="wx5c5be12f9933f83d";
+    private String openID_wx;
+    private String nickname_wx;
+    private String head_url;
     @Override
     public int getContentViewId() {
         return R.layout.activity_login;
@@ -110,6 +109,7 @@ public class LoginActivity extends BaseActivity {
         //qq 传入参数APPID和全局Context上下文
         mTencent = Tencent.createInstance(QQ_APP_ID,LoginActivity.this.getApplicationContext());
 
+
         //qq和wx登录返回加载
         getQQLoginListener=new SubscriberOnNextListener() {
             @Override
@@ -117,20 +117,29 @@ public class LoginActivity extends BaseActivity {
                 ThreeLoginEntity.DataBean userInfo=gson.fromJson(gson.toJson(o),ThreeLoginEntity.DataBean.class);
                 String account=userInfo.getAccount();
                 if (account==null||"".equals(account)){
-                    intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    intent.putExtra(K.TITLE,2);
+                    intent = new Intent(LoginActivity.this, BindPhoneActivity.class);
+                    intent.putExtra(K.USERID,userInfo.getM_id());
                     startActivity(intent);
-                   L.i("1111111111111");
+                    finish();
                 }else {
-                    //SPUtils.put(LoginActivity.this, K.USERINFO, userInfo);
-                    //loginEC(userInfo.getEasemob_account(), userInfo.getEasemob_password());
-                    intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    intent.putExtra(K.TITLE,2);
-                    startActivity(intent);
-                    L.i("222222222");
+                    loadUserInfo(userInfo.getM_id());
                 }
             }
         };
+
+        /* 微信返回数据*/
+        intent=getIntent();
+        String account_type=intent.getStringExtra("account_type");
+        if ("1".equals(account_type)){
+            nickname_wx=intent.getStringExtra("nickname");
+            openID_wx=intent.getStringExtra("openid");
+            head_url=intent.getStringExtra("head_pic");
+            if (head_url.length()>=5){
+                loadPicture(head_url,1);
+            }else {
+                loginThree(openID_wx,nickname_wx,mHead,"1");
+            }
+        }
     }
 
 
@@ -142,13 +151,11 @@ public class LoginActivity extends BaseActivity {
                 tel = loginTel.getText().toString();
                 String pass = loginPassword.getText().toString();
                 if (tel.equals("")) {
-                    //T.show(this, "手机号码出错", Toast.LENGTH_SHORT);
                     toastText.setText("手机号码出错");
                     toastText.setVisibility(View.VISIBLE);
                     return;
                 }
                 if (pass.equals("")) {
-                    //T.show(this, "密码出错", Toast.LENGTH_SHORT);
                     toastText.setText("密码出错");
                     toastText.setVisibility(View.VISIBLE);
                     return;
@@ -204,10 +211,29 @@ public class LoginActivity extends BaseActivity {
 
     /*
     *
+    *重新加载用户信息通过m_id
+    *
+    */
+    public void loadUserInfo(String m_id){
+        SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                UserInfoEntity userInfo = gson.fromJson(gson.toJson(o), UserInfoEntity.class);
+                SPUtils.put(LoginActivity.this, K.USERINFO, userInfo);
+                loginEC(userInfo.getEasemob_account(), userInfo.getEasemob_password());
+            }
+        };
+        setProgressSubscriber(onNextListener);
+        params.clear();
+        params.put("m_id", m_id);
+        HttpMethods.getInstance(this).memberCenter(progressSubscriber, params);
+    }
+    /*
+    *
     *环信登录包含了跳转界面
     *
     */
-    private void loginEC(String ecUser, String ecPass) {
+    private void loginEC(final String ecUser, final String ecPass) {
         EMClient.getInstance().login(ecUser, ecPass, new EMCallBack() {//回调
             @Override
             public void onSuccess() {
@@ -285,11 +311,9 @@ public class LoginActivity extends BaseActivity {
      * 自定义监听器实现IUiListener接口后，需要实现的3个方法
      * onComplete完成 onError错误 onCancel取消
      */
-    private String nickname;
-    private String figure;
-    private     File mHead;
-    private boolean isUP = false;
-    private String openID;
+    private String nickname_QQ;
+    private String figure_QQ;
+    private String openID_QQ;
     private class BaseUiListener implements IUiListener{
 
         @Override
@@ -299,10 +323,10 @@ public class LoginActivity extends BaseActivity {
             JSONObject obj = (JSONObject) response;
 
             try {
-                openID = obj.getString("openid");
+                openID_QQ = obj.getString("openid");
                 String accessToken = obj.getString("access_token");
                 String expires = obj.getString("expires_in");
-                mTencent.setOpenId(openID);
+                mTencent.setOpenId(openID_QQ);
                 mTencent.setAccessToken(accessToken,expires);
                 QQToken qqToken = mTencent.getQQToken();
                 mUserInfo = new UserInfo(getApplicationContext(),qqToken);
@@ -320,10 +344,10 @@ public class LoginActivity extends BaseActivity {
                         Log.e(TAG,"登录成功"+response.toString());
                         try {
                             JSONObject obj = new JSONObject(response.toString());
-                             nickname =obj.getString("nickname");
-                             figure =obj.getString("figureurl_qq_2");
-                            if (figure != null){
-                                loadPicture(figure,2);
+                            nickname_QQ =obj.getString("nickname");
+                            figure_QQ =obj.getString("figureurl_qq_2");
+                            if (figure_QQ != null){
+                                loadPicture(figure_QQ,2);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -359,86 +383,89 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void loginThree(String s) {
+    private void loginThree(String openId,String nickname,File mHead,String s) {
         setProgressSubscriber(getQQLoginListener);
         httpParamet.clear();
         //必须品不能错
-        httpParamet.addParameter("openid",openID);
+        httpParamet.addParameter("openid",openId);
         httpParamet.addParameter("nickname",nickname);
-        httpParamet.addParameter("head_pic",dcimFile);
+        httpParamet.addParameter("head_pic",mHead);
         httpParamet.addParameter("account_type",s);
         HttpMethods.getInstance(LoginActivity.this).getThreeLogin(progressSubscriber,httpParamet.bulider());
     }
     /*
     *
-    * 把图片下载到本地并压缩
+    * 把图片下载到本地
     *
     */
-
-    private File dcimFile=null;
+    private File mHead=null;
     protected void loadPicture(final String  figure,final int isLogin) {
-       dcimFile = FileUtil
-                .getDCIMFile(FileUtil.PATH_PHOTOGRAPH,figure);
-        Picasso.with(this).load(figure).into(new Target() {
+        HttpUtils utils=new HttpUtils();
+        utils.download(figure, Environment.getExternalStorageDirectory() + "/Yzd/HeadImg/head.png", new RequestCallBack<File>() {
             @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-
-                L.i("bitmap="+bitmap);
-                FileOutputStream ostream = null;
-                try {
-                    ostream = new FileOutputStream(dcimFile);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-                    ostream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(LoginActivity.this,"图片下载至:"+dcimFile,Toast.LENGTH_SHORT).show();
-
+            public void onSuccess(ResponseInfo<File> responseInfo) {
+               String dcimFile=Environment.getExternalStorageDirectory() + "/Yzd/HeadImg/head.png";
+                addLuban(isLogin,dcimFile);
             }
 
             @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            public void onFailure(HttpException e, String s) {
 
             }
         });
-        Luban.get(LoginActivity.this)
-                .load(dcimFile)                     //传人要压缩的图片
-                .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
-                .setCompressListener(new OnCompressListener() { //设置回调
 
-                    @Override
-                    public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        mHead = file;
-                        Message msg=new Message();
-                        msg.what=isLogin;
-                        msg.obj=true;
-                        mHandler.sendMessage(msg);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(LoginActivity.this, "当压缩过去出现问题时调用", Toast.LENGTH_SHORT).show();
-                    }
-                }).launch();    //启动压缩
     }
+    /*
+    *
+    *
+    * 压缩
+    *
+    */
+    public void addLuban(final int isLogin, final String dcimFile){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                Luban.get(LoginActivity.this)
+                        .load(new File(dcimFile))                     //传人要压缩的图片
+                        .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
+                        .setCompressListener(new OnCompressListener() { //设置回调
+
+                            @Override
+                            public void onStart() {
+
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                mHead = file;
+                                Message msg=new Message();
+                                msg.what=isLogin;
+                                msg.obj=true;
+                                mHandler.sendMessage(msg);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Toast.makeText(LoginActivity.this, "当压缩过去出现问题时调用", Toast.LENGTH_SHORT).show();
+                            }
+                        }).launch();    //启动压缩
+            }
+        }.start();
+    }
+    /*
+    *
+    * 判断QQ还是WX
+    *
+    */
     private  Handler mHandler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    loginThree("1");break;
+                    loginThree(openID_wx,nickname_wx,mHead,"1");break;
                 case 2:
-                    loginThree("2");break;
+                    loginThree(openID_QQ,nickname_QQ,mHead,"2");break;
             }
             return false;
         }

@@ -22,6 +22,7 @@ public class K {
     public static final String PASSWORD = "passWord";//密码
     public static final String ISLOGIN = "isLogin";//退出登录
     public static final String USERINFO = "userinfo";
+    public static final String USERID = "userid";
     public static final String COOKIE = "cookie";//保存cookie
     public static final String HEAD = "head_image";
     public static final String HISTORY = "history";//历史记录
