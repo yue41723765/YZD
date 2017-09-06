@@ -55,6 +55,10 @@ public interface HttpService {
     Observable<HttpResult> modifyPassword(@FieldMap Map<String, String> param);
 
     @FormUrlEncoded
+    @POST("index.php/Api/Member/setPass")
+    Observable<HttpResult> setPassword(@FieldMap Map<String, String> param);
+
+    @FormUrlEncoded
     @POST("index.php/Api/Member/memberCenter")
     Observable<HttpResult> memberCenter(@FieldMap Map<String, String> param);
 
@@ -203,6 +207,10 @@ public interface HttpService {
     @Multipart
     @POST("index.php/Api/Find/exchangeGoods")
     Observable<HttpResult> exchangeGoods(@PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST("index.php/Api/FindNew/exchangeCoupon")
+    Observable<HttpResult> exchangeCoupon(@PartMap Map<String, RequestBody> param);
 
     @Multipart
     @POST("index.php/Api/Order/addOrder")

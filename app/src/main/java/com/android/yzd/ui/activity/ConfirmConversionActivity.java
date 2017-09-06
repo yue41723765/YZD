@@ -30,35 +30,24 @@ import butterknife.ButterKnife;
  */
 
 public class ConfirmConversionActivity extends BaseActivity {
-
-
-    @BindView(R.id.address)
-    ImageView address;
-    @BindView(R.id.arrow_right)
-    ImageView arrowRight;
-    @BindView(R.id.order_address_name)
-    TextView orderAddressName;
-    @BindView(R.id.order_address_tel)
-    TextView orderAddressTel;
-    @BindView(R.id.order_address)
-    RelativeLayout orderAddress;
-    @BindView(R.id.find_image)
-    ImageView findImage;
-    @BindView(R.id.find_title)
-    TextView findTitle;
-    @BindView(R.id.find_content)
-    TextView findContent;
-    @BindView(R.id.find_integral)
-    TextView findIntegral;
-    @BindView(R.id.sure_conversion)
-    Button sureConversion;
-    @BindView(R.id.item_address)
-    TextView itemAddress;
-
+    @BindView(R.id.find_image)ImageView findImage;
+    @BindView(R.id.find_image_t)ImageView findImage_t;
+    @BindView(R.id.find_title)TextView findTitle;
+    @BindView(R.id.find_title_t)TextView findTitle_t;
+    @BindView(R.id.find_content)TextView findContent;
+    @BindView(R.id.find_content_t)TextView findContent_t;
+    @BindView(R.id.conversion_minus)ImageView minusImg;
+    @BindView(R.id.conversion_add)ImageView addImg;
+    @BindView(R.id.conversion_edit)TextView showNum;
+    @BindView(R.id.find_show_integral)TextView showIntegral;
+    @BindView(R.id.show_less_integral)TextView lessIntegral;
 
     IntegralListBean integralListBean;
     UserInfoEntity userInfo;
     AddressEntity addressEntity;
+
+    private int needIntegral;
+    private int myIntegral;
 
     @Override
     public int getContentViewId() {
@@ -70,48 +59,65 @@ public class ConfirmConversionActivity extends BaseActivity {
         AppManager.getAppManager().addActivity(this);
         userInfo = (UserInfoEntity) SPUtils.get(this, K.USERINFO, UserInfoEntity.class);
         integralListBean = getIntent().getParcelableExtra(K.DATA);
-
+        myIntegral=Integer.parseInt(userInfo.getIntegral());
         Picasso.with(this).load(integralListBean.getGoods_logo()).into(findImage);
+        Picasso.with(this).load(integralListBean.getGoods_logo()).into(findImage_t);
         findTitle.setText(integralListBean.getGoods_name());
+        findTitle_t.setText(integralListBean.getGoods_name());
         findContent.setText(integralListBean.getGoods_brief());
-        findIntegral.setText(integralListBean.getNeed_integral());
-        getAddressInfo();
+        findContent_t.setText(integralListBean.getGoods_brief());
+        needIntegral=Integer.parseInt(integralListBean.getNeed_integral());
+        showIntegral.setText("-"+needIntegral);
     }
 
-    private void getAddressInfo() {
-        SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o) {
-                if (o.toString().equals("[]"))
-                    return;
-                addressEntity = gson.fromJson(gson.toJson(o), AddressEntity.class);
-                if (addressEntity != null) {
-                    orderAddressName.setText("收货人：" + addressEntity.getConsignee());
-                    orderAddressTel.setText(addressEntity.getMobile());
-                    itemAddress.setText(addressEntity.getAddress());
-                }
-            }
-        };
-        setProgressSubscriber(onNextListener, false);
-        httpParamet.addParameter("m_id", userInfo.getM_id());
-        HttpMethods.getInstance(this).getOneAddress(progressSubscriber, httpParamet.bulider());
-    }
 
+    private int  count=1;
+    private int integralCount;
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.sure_conversion:
-                if (addressEntity == null) {
-                    T.show(this, "请选择收货地址", Toast.LENGTH_SHORT);
-                } else {
-                    exchangeGoods();
+                if (myIntegral-needIntegral<0){
+                    lessIntegral.setVisibility(View.VISIBLE);
+                    lessIntegral.setText(myIntegral+"  "+"当前积分不足");
+                    return;
                 }
+                exchangeCoupon();
                 break;
-            case R.id.order_address:
-                intent = new Intent(this, AddressManageActivity.class);
-                intent.putExtra(K.STATUS, 111);
-                startActivityForResult(intent, 100);
+            case R.id.conversion_add:
+                count=Integer.parseInt(showNum.getText().toString());
+                count+=1;
+                integralCount=needIntegral*count;
+                if (myIntegral-integralCount<0&&myIntegral>needIntegral){
+                    lessIntegral.setVisibility(View.VISIBLE);
+                    int num=needIntegral-(integralCount-myIntegral);
+                    lessIntegral.setText(num+"  "+"当前积分不足");
+                    return;
+                }else if (myIntegral<needIntegral){
+                    lessIntegral.setVisibility(View.VISIBLE);
+                    lessIntegral.setText(myIntegral+"  "+"当前积分不足");
+                    return;
+                }
+                showIntegral.setText("-"+needIntegral);
+                showNum.setText(count+"");
+                break;
+            case R.id.conversion_minus:
+                count=Integer.parseInt(showNum.getText().toString());
+                if (count==1){
+                    showNum.setText(count+"");
+                    showIntegral.setText("-"+needIntegral);
+                    if (myIntegral-needIntegral<0){
+                        lessIntegral.setVisibility(View.VISIBLE);
+                        lessIntegral.setText(myIntegral+"  "+"当前积分不足");
+                    }
+                }else {
+                    count-=1;
+                    integralCount=needIntegral*count;
+                    showIntegral.setText("-"+integralCount);
+                    showNum.setText(count+"");
+                    lessIntegral.setVisibility(View.INVISIBLE);
+                }
                 break;
         }
     }
@@ -119,32 +125,22 @@ public class ConfirmConversionActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null)
-            return;
-        switch (requestCode) {
-            case 100:
-                //地址
-                addressEntity = data.getParcelableExtra(K.DATA);
-                orderAddressName.setText("收货人：" + addressEntity.getConsignee());
-                orderAddressTel.setText(addressEntity.getMobile());
-                itemAddress.setText(addressEntity.getAddress());
-                break;
-        }
     }
 
-    private void exchangeGoods() {
+    private void exchangeCoupon() {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                T.show(ConfirmConversionActivity.this, "兑换成功", Toast.LENGTH_SHORT);
+                lessIntegral.setVisibility(View.VISIBLE);
+                lessIntegral.setText("兑换成功");
             }
         };
         setProgressSubscriber(onNextListener);
         httpParamet.clear();
         httpParamet.addParameter("m_id", userInfo.getM_id());
-        httpParamet.addParameter("i_g_id", integralListBean.getI_g_id());
-        httpParamet.addParameter("address_id", addressEntity.getAddress_id());
-        HttpMethods.getInstance(this).exchangeGoods(progressSubscriber, httpParamet.bulider());
+        httpParamet.addParameter("cou_id", integralListBean.getI_g_id());
+        httpParamet.addParameter("num", showNum.getText());
+        HttpMethods.getInstance(this).exchangeCoupon(progressSubscriber, httpParamet.bulider());
     }
 
     @Override

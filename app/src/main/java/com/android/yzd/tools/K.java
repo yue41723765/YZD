@@ -17,6 +17,7 @@ public class K {
 
     public static final String ISRUN = "ISRUN";//是否跳转到引导页
     public static final String ISLOG = "isLog";//是否登陆
+    public static final String ISPASSWORD = "ispassword";//是否登陆
 
     public static final String USERNAME = "userName";//用户名
     public static final String PASSWORD = "passWord";//密码
@@ -32,6 +33,7 @@ public class K {
     public static final String PARCELABLE = "Parcelable";
 
     public static final String DATA = "data";
+    public static final String INTEGRAL = "integral";//积分
     public static final String ORDER_ID = "order_id";
 
     public static final String INVITE_CODE = "inviteCode";

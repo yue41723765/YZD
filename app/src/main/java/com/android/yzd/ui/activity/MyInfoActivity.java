@@ -73,6 +73,11 @@ public class MyInfoActivity extends BaseActivity {
     Button infoSave;
     @BindView(R.id.info_head)
     CircleImageView infoHead;
+    @BindView(R.id.change_password)
+    TextView changePassword;
+    @BindView(R.id.my_invite_RE)RelativeLayout myInvite;
+    @BindView(R.id.my_invite_code)TextView myInviteCode;
+    @BindView(R.id.referrer_invite_code)TextView referrerCode;
 
 
     UserInfoEntity userInfo;//登陆保存个人信息
@@ -81,6 +86,8 @@ public class MyInfoActivity extends BaseActivity {
     HttpParameterBuilder httpParamet;
     String mSex;
     File mHead;
+
+    String isPassword;
     boolean isUP = true;
 
     @Override
@@ -106,6 +113,16 @@ public class MyInfoActivity extends BaseActivity {
                 infoNick.setText(myInfo.getNickname());
                 infoTel.setText(myInfo.getAccount());
                 mSex = myInfo.getSex();
+                myInviteCode.setText(myInfo.getInvite_code());
+                isPassword=myInfo.getIs_set_password();
+                if ("0".equals(isPassword)){
+                    changePassword.setText("设置登录密码");
+                }
+                if ("0".equals(myInfo.getParent_id())){
+                    referrerCode.setText("无");
+                }else {
+                    referrerCode.setText(myInfo.getParent_invite_code());
+                }
                 switch (myInfo.getSex()) {
                     case "0":
                         infoSex.setText("保密");
@@ -121,6 +138,7 @@ public class MyInfoActivity extends BaseActivity {
                 userInfo.setAccount(myInfo.getAccount());
                 userInfo.setHead_pic(myInfo.getHead_pic());
                 userInfo.setNickname(myInfo.getNickname());
+
                 SPUtils.put(MyInfoActivity.this, K.USERINFO, userInfo);
             }
         };
@@ -189,6 +207,7 @@ public class MyInfoActivity extends BaseActivity {
             case R.id.alter_password:
                 //修改密码
                 intent = new Intent(this, AlterPasswordActivity.class);
+                intent.putExtra(K.ISPASSWORD,isPassword);
                 startActivity(intent);
                 break;
             case R.id.info_save:

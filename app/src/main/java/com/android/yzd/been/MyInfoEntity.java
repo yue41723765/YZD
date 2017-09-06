@@ -20,6 +20,42 @@ public class MyInfoEntity {
     private String nickname;
     private String sex;
     private String head_pic;
+    private String is_set_password;
+    private String invite_code;
+    private String parent_id;
+    private String parent_invite_code;
+
+    public String getIs_set_password() {
+        return is_set_password;
+    }
+
+    public void setIs_set_password(String is_set_password) {
+        this.is_set_password = is_set_password;
+    }
+
+    public String getInvite_code() {
+        return invite_code;
+    }
+
+    public void setInvite_code(String invite_code) {
+        this.invite_code = invite_code;
+    }
+
+    public String getParent_id() {
+        return parent_id;
+    }
+
+    public void setParent_id(String parent_id) {
+        this.parent_id = parent_id;
+    }
+
+    public String getParent_invite_code() {
+        return parent_invite_code;
+    }
+
+    public void setParent_invite_code(String parent_invite_code) {
+        this.parent_invite_code = parent_invite_code;
+    }
 
     public String getM_id() {
         return m_id;

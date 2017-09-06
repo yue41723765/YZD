@@ -1,5 +1,7 @@
 package com.android.yzd.been;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 /**
@@ -29,6 +31,20 @@ public class UserInfoEntity implements Serializable {
     private String status;
     private String balance;
     private String not_read;
+    /**
+     * exchange_num : 已经兑换的次数
+     * integral : 积分
+     * degree : 等级
+     */
+
+    private String exchange_num;
+    private String integral;
+    private String degree;
+
+    public static UserInfoEntity objectFromData(String str) {
+
+        return new Gson().fromJson(str, UserInfoEntity.class);
+    }
 
     public String getM_id() {
         return m_id;
@@ -102,4 +118,27 @@ public class UserInfoEntity implements Serializable {
         this.not_read = not_read;
     }
 
+    public String getExchange_num() {
+        return exchange_num;
+    }
+
+    public void setExchange_num(String exchange_num) {
+        this.exchange_num = exchange_num;
+    }
+
+    public String getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(String integral) {
+        this.integral = integral;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
 }

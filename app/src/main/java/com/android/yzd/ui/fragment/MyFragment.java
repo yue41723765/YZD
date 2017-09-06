@@ -145,10 +145,10 @@ public class MyFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         getUserInfoEntity();
-        getUserGradeInfo();
     }
 
     //刷新个人信息
+    //数字：积分，等级，已兑换。
     private void showUserInfo() {
         Picasso.with(context).load(userInfo.getHead_pic()).into(myHead);
         myNick.setText(userInfo.getNickname());
@@ -158,8 +158,10 @@ public class MyFragment extends BaseFragment {
         } else {
             myMessage.setImageResource(R.mipmap.home_message);
         }
+        grade.setText(userInfo.getDegree());
+        convert.setText(userInfo.getExchange_num());
+        integral.setText(userInfo.getIntegral());
     }
-
 
     private void getUserInfoEntity() {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
@@ -173,9 +175,5 @@ public class MyFragment extends BaseFragment {
         Map<String, String> params = new HashMap<>();
         params.put("m_id", getUserInfo().getM_id());
         HttpMethods.getInstance(context).memberCenter(progressSubscriber, params);
-    }
-
-    //数字：积分，等级，已兑换。
-    public void getUserGradeInfo() {
     }
 }

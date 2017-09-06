@@ -243,6 +243,18 @@ public class HttpMethods {
     }
 
     /**
+     * 修改密码
+     *
+     * @param subscriber
+     * @param param
+     */
+    public void setPassword(Subscriber<HttpResult> subscriber, Map<String, String> param) {
+        Observable observable = httpService.setPassword(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
      * 个人中心
      *
      * @param subscriber
@@ -648,6 +660,16 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
+    /**
+     * 新的兑换商品
+     *
+     * @param subscriber
+     */
+    public void exchangeCoupon(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.exchangeCoupon(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
     /**
      * 新增订单
      *

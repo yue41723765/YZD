@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.yzd.R;
@@ -40,12 +41,16 @@ public class AlterPasswordActivity extends BaseActivity {
     EditText againNewPassword;
     @BindView(R.id.sure)
     Button sure;
+    @BindView(R.id.titleBar_title)
+    TextView title;
 
     SubscriberOnNextListener mSubscriberOnNextListener;
+    SubscriberOnNextListener setPasswordOnNextListener;
     ProgressSubscriber mProgressSubscriber;
     Map<String, String> param = new HashMap<>();
     UserInfoEntity mUserInfoEntity;
 
+    private String isPassword;
     @Override
     public int getContentViewId() {
         return R.layout.activity_alter_password;
@@ -54,7 +59,13 @@ public class AlterPasswordActivity extends BaseActivity {
     @Override
     protected void initAllMembersView(Bundle savedInstanceState) {
         AppManager.getAppManager().addActivity(this);
-
+        isPassword=getIntent().getExtras().getString(K.ISPASSWORD);
+        if ("0".equals(isPassword)){
+            oldPassword.setVisibility(View.GONE);
+            title.setText("设置密码");
+        }else {
+            title.setText("修改密码");
+        }
         mUserInfoEntity = (UserInfoEntity) SPUtils.get(this, K.USERINFO, UserInfoEntity.class);
         mSubscriberOnNextListener = new SubscriberOnNextListener() {
             @Override
@@ -64,6 +75,13 @@ public class AlterPasswordActivity extends BaseActivity {
             }
         };
 
+        setPasswordOnNextListener = new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                T.show(AlterPasswordActivity.this, "密码设置成功", Toast.LENGTH_LONG);
+                finish();
+            }
+        };
     }
 
     @Override
@@ -71,35 +89,68 @@ public class AlterPasswordActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.sure:
-                String old = oldPassword.getText().toString();
-                String new_ = newPassword.getText().toString();
-                String again = againNewPassword.getText().toString();
-                if (TextUtils.isEmpty(old)) {
-                    T.show(this, "请您输入原密码", Toast.LENGTH_LONG);
-                    return;
+                if ("0".equals(isPassword)){
+                    setNewPassword();
+                }else {
+                    changePassword();
                 }
-                if (TextUtils.isEmpty(new_)) {
-                    T.show(this, "请您输入新密码", Toast.LENGTH_LONG);
-                    return;
-                }
-                if (TextUtils.isEmpty(again)) {
-                    T.show(this, "请您再次输入新密码", Toast.LENGTH_LONG);
-                    return;
-                }
-                if (!new_.equals(again)) {
-                    T.show(this, "两次输入的密码不相同，请重新输入", Toast.LENGTH_LONG);
-                    return;
-                }
-                mProgressSubscriber = new ProgressSubscriber(mSubscriberOnNextListener, this, false);
-                param.clear();
-                param.put("password", old);
-                param.put("m_id", mUserInfoEntity.getM_id());
-                param.put("new_password", new_);
-                HttpMethods.getInstance(this).modifyPassword(mProgressSubscriber, param);
                 break;
         }
     }
 
+    /*
+    *
+    * 设置新密码
+    *
+    */
+    protected void changePassword(){
+        String old = oldPassword.getText().toString();
+        String new_ = newPassword.getText().toString();
+        String again = againNewPassword.getText().toString();
+        if (TextUtils.isEmpty(old)) {
+            T.show(this, "请您输入原密码", Toast.LENGTH_LONG);
+            return;
+        }
+        if (TextUtils.isEmpty(new_)) {
+            T.show(this, "请您输入新密码", Toast.LENGTH_LONG);
+            return;
+        }
+        if (TextUtils.isEmpty(again)) {
+            T.show(this, "请您再次输入新密码", Toast.LENGTH_LONG);
+            return;
+        }
+        if (!new_.equals(again)) {
+            T.show(this, "两次输入的密码不相同，请重新输入", Toast.LENGTH_LONG);
+            return;
+        }
+        mProgressSubscriber = new ProgressSubscriber(mSubscriberOnNextListener, this, false);
+        param.clear();
+        param.put("password", old);
+        param.put("m_id", mUserInfoEntity.getM_id());
+        param.put("new_password", new_);
+        HttpMethods.getInstance(this).modifyPassword(mProgressSubscriber, param);
+    }
+    protected void setNewPassword(){
+        String new_ = newPassword.getText().toString();
+        String again = againNewPassword.getText().toString();
+        if (TextUtils.isEmpty(new_)) {
+            T.show(this, "请您输入密码", Toast.LENGTH_LONG);
+            return;
+        }
+        if (TextUtils.isEmpty(again)) {
+            T.show(this, "请您再次输入密码", Toast.LENGTH_LONG);
+            return;
+        }
+        if (!new_.equals(again)) {
+            T.show(this, "两次输入的密码不相同，请重新输入", Toast.LENGTH_LONG);
+            return;
+        }
+        mProgressSubscriber = new ProgressSubscriber(mSubscriberOnNextListener, this, false);
+        param.clear();
+        param.put("password", new_);
+        param.put("m_id", mUserInfoEntity.getM_id());
+        HttpMethods.getInstance(this).setPassword(mProgressSubscriber, param);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

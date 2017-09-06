@@ -16,6 +16,7 @@
     <color name="blue_17">#1789bb</color>
     <color name="blue_cursor">#7ceeff</color>
     <color name="blue_03">#03c6de</color>
+    <color name="blue_2f">#2fbdfc</color>
 
     <color name="background">#f6f6f6</color>
     <color name="background_2">#ECECED</color>
@@ -27,6 +28,7 @@
     <color name="red_52">#Fb5252</color>
     <color name="red_60">#FD7201</color>
     <color name="orange">#FDAF3F</color>
+    <color name="orange_ff">#ff7925</color>
     <color name="orange_border">#f9b920</color>
     <color name="white_30">#E4E4E4</color>
     <color name="white">#ffffff</color>
