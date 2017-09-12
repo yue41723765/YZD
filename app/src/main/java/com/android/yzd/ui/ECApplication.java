@@ -8,12 +8,13 @@ import com.android.yzd.tools.CrashHandler;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.controller.EaseUI;
+import com.mob.MobApplication;
 
 /**
  * Created by Administrator on 2016/10/23 0023.
  */
 
-public class ECApplication extends Application {
+public class ECApplication extends MobApplication {
 
     public static ECApplication application;
 

@@ -20,7 +20,11 @@ public class UserInfoEntity implements Serializable {
      * nickname : 测试
      * status : 1
      * not_read : 0
+     * exchange_num : 已经兑换的次数
+     * integral : 积分
+     * degree : 等级
      */
+
 
     private String m_id;
     private String account;
@@ -31,12 +35,6 @@ public class UserInfoEntity implements Serializable {
     private String status;
     private String balance;
     private String not_read;
-    /**
-     * exchange_num : 已经兑换的次数
-     * integral : 积分
-     * degree : 等级
-     */
-
     private String exchange_num;
     private String integral;
     private String degree;

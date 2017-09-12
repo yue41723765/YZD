@@ -11,6 +11,15 @@
         android:layout_height="wrap_content"
         app:setTitle="兑换记录" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_90px"
+        android:text="兑换明细"
+        android:textColor="@color/black_30"
+        android:textSize="@dimen/_36spx"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/_35px"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/conversion_recycler"
         android:layout_width="match_parent"

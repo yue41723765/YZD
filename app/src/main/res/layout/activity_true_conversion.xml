@@ -36,7 +36,8 @@
         <ImageView
             android:id="@+id/find_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/discount_coupon"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,7 +48,7 @@
                 android:id="@+id/find_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="168px"
+                android:layout_marginTop="56dp"
                 android:layout_marginLeft="@dimen/_89px"
                 android:text="有限期至："
                 android:textColor="@color/black_60"
@@ -59,15 +60,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:gravity="center"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_89px"
-                android:layout_marginBottom="@dimen/_33px"
+                android:layout_marginTop="33dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_86px"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="内容"
-                android:textColor="@color/black_90"
-                android:textSize="@dimen/_28spx" />
+                android:text="$10"
+                android:textColor="@color/red_52"
+                android:textSize="@dimen/_48spx"  />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -84,7 +84,8 @@
         <ImageView
             android:id="@+id/find_image_t"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/discount_coupon"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -95,7 +96,7 @@
                 android:id="@+id/find_title_t"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="168px"
+                android:layout_marginTop="56dp"
                 android:layout_marginLeft="@dimen/_89px"
                 android:text="有限期至："
                 android:textColor="@color/black_60"
@@ -107,15 +108,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:gravity="center"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_89px"
-                android:layout_marginBottom="@dimen/_33px"
+                android:layout_marginTop="33dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_86px"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="内容"
-                android:textColor="@color/black_90"
-                android:textSize="@dimen/_28spx" />
+                android:text="$10"
+                android:textColor="@color/red_52"
+                android:textSize="@dimen/_48spx" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -10,13 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.yzd.R;
-import com.android.yzd.been.AddressEntity;
-import com.android.yzd.been.IntegralListBean;
+import com.android.yzd.been.NewIntegralListBean;
 import com.android.yzd.been.UserInfoEntity;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
 import com.android.yzd.tools.AppManager;
 import com.android.yzd.tools.K;
+import com.android.yzd.tools.L;
 import com.android.yzd.tools.SPUtils;
 import com.android.yzd.tools.T;
 import com.android.yzd.ui.custom.BaseActivity;
@@ -42,13 +42,11 @@ public class ConfirmConversionActivity extends BaseActivity {
     @BindView(R.id.find_show_integral)TextView showIntegral;
     @BindView(R.id.show_less_integral)TextView lessIntegral;
 
-    IntegralListBean integralListBean;
     UserInfoEntity userInfo;
-    AddressEntity addressEntity;
 
-    private int needIntegral;
-    private int myIntegral;
-
+    private int needIntegral=0;
+    private int myIntegral=0;
+    String cou_id;
     @Override
     public int getContentViewId() {
         return R.layout.activity_true_conversion;
@@ -58,21 +56,24 @@ public class ConfirmConversionActivity extends BaseActivity {
     protected void initAllMembersView(Bundle savedInstanceState) {
         AppManager.getAppManager().addActivity(this);
         userInfo = (UserInfoEntity) SPUtils.get(this, K.USERINFO, UserInfoEntity.class);
-        integralListBean = getIntent().getParcelableExtra(K.DATA);
+        NewIntegralListBean integralListBean = getIntent().getParcelableExtra(K.DATA);
+        L.d("TAG","---"+integralListBean.getExpired_day()+"-"+integralListBean.getNeed_integral());
         myIntegral=Integer.parseInt(userInfo.getIntegral());
-        Picasso.with(this).load(integralListBean.getGoods_logo()).into(findImage);
-        Picasso.with(this).load(integralListBean.getGoods_logo()).into(findImage_t);
-        findTitle.setText(integralListBean.getGoods_name());
-        findTitle_t.setText(integralListBean.getGoods_name());
-        findContent.setText(integralListBean.getGoods_brief());
-        findContent_t.setText(integralListBean.getGoods_brief());
+        findContent.setText(integralListBean.getNeed_integral());
+        findContent_t.setText(integralListBean.getNeed_integral());
+        findTitle.setText("有效期为："+integralListBean.getExpired_day()+"天");
+        findTitle_t.setText("有效期为："+integralListBean.getExpired_day()+"天");
+        if (integralListBean.getNeed_integral()==null){
+            Toast.makeText(this, "为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
         needIntegral=Integer.parseInt(integralListBean.getNeed_integral());
         showIntegral.setText("-"+needIntegral);
+        cou_id=integralListBean.getCou_id();
     }
 
 
     private int  count=1;
-    private int integralCount;
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -88,7 +89,7 @@ public class ConfirmConversionActivity extends BaseActivity {
             case R.id.conversion_add:
                 count=Integer.parseInt(showNum.getText().toString());
                 count+=1;
-                integralCount=needIntegral*count;
+                int integralCount=needIntegral*count;
                 if (myIntegral-integralCount<0&&myIntegral>needIntegral){
                     lessIntegral.setVisibility(View.VISIBLE);
                     int num=needIntegral-(integralCount-myIntegral);
@@ -99,7 +100,7 @@ public class ConfirmConversionActivity extends BaseActivity {
                     lessIntegral.setText(myIntegral+"  "+"当前积分不足");
                     return;
                 }
-                showIntegral.setText("-"+needIntegral);
+                showIntegral.setText("-"+integralCount);
                 showNum.setText(count+"");
                 break;
             case R.id.conversion_minus:
@@ -122,11 +123,6 @@ public class ConfirmConversionActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void exchangeCoupon() {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
             @Override
@@ -138,8 +134,8 @@ public class ConfirmConversionActivity extends BaseActivity {
         setProgressSubscriber(onNextListener);
         httpParamet.clear();
         httpParamet.addParameter("m_id", userInfo.getM_id());
-        httpParamet.addParameter("cou_id", integralListBean.getI_g_id());
-        httpParamet.addParameter("num", showNum.getText());
+        httpParamet.addParameter("cou_id", cou_id);
+        httpParamet.addParameter("num", showNum.getText().toString());
         HttpMethods.getInstance(this).exchangeCoupon(progressSubscriber, httpParamet.bulider());
     }
 

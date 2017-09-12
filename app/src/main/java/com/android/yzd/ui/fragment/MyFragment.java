@@ -13,12 +13,15 @@ import com.android.yzd.been.UserInfoEntity;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
 import com.android.yzd.tools.K;
+import com.android.yzd.tools.SPUtils;
 import com.android.yzd.ui.activity.AddressManageActivity;
 import com.android.yzd.ui.activity.BankCardActivity;
 import com.android.yzd.ui.activity.CollectActivity;
 import com.android.yzd.ui.activity.DiscountCouponActivity;
 import com.android.yzd.ui.activity.IntegralActivity;
 import com.android.yzd.ui.activity.MessageManagerActivity;
+import com.android.yzd.ui.activity.MyExchangeActivity;
+import com.android.yzd.ui.activity.MyGradeActivity;
 import com.android.yzd.ui.activity.MyInfoActivity;
 import com.android.yzd.ui.activity.OrderActivity;
 import com.android.yzd.ui.activity.SetActivity;
@@ -72,7 +75,8 @@ public class MyFragment extends BaseFragment {
 
     @OnClick({R.id.my_message, R.id.my_info, R.id.discount_coupon, R.id.my_collect, R.id.my_allOrder,
             R.id.my_wait_pay, R.id.my_wait_delivery, R.id.my_wait_getGoods, R.id.my_accomplish,
-            R.id.my_wallet, R.id.my_shopping_mall_store, R.id.bank_card, R.id.address_manage, R.id.my_setting})
+            R.id.my_wallet, R.id.my_shopping_mall_store, R.id.bank_card, R.id.address_manage, R.id.my_setting,
+            R.id.my_convert_layout,R.id.my_integral_layout,R.id.my_grade_layout})
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
@@ -137,6 +141,21 @@ public class MyFragment extends BaseFragment {
                 intent = new Intent(getContext(), IntegralActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.my_grade_layout:
+                intent=new Intent(getContext(), MyGradeActivity.class);
+                intent.putExtra("CHOOSE","Grade");
+                startActivity(intent);
+                break;
+            case R.id.my_integral_layout:
+                intent=new Intent(getContext(), MyGradeActivity.class);
+                intent.putExtra("CHOOSE","Integral");
+                startActivity(intent);
+                break;
+            case R.id.my_convert_layout:
+                intent=new Intent(getContext(), MyExchangeActivity.class);
+                intent.putExtra("CHOOSE","Convert");
+                startActivity(intent);
+                break;
         }
     }
 
@@ -168,6 +187,7 @@ public class MyFragment extends BaseFragment {
             @Override
             public void onNext(Object o) {
                 userInfo = gson.fromJson(gson.toJson(o), UserInfoEntity.class);
+                SPUtils.put(getContext(),K.USERINFO,userInfo);
                 showUserInfo();
             }
         };

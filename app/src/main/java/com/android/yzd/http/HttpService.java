@@ -192,13 +192,40 @@ public interface HttpService {
     @POST("index.php/Api/Find/findIndex")
     Observable<HttpResult> findIndex(@PartMap Map<String, RequestBody> param);
 
+
+    @Multipart
+    @POST("index.php/Api/FindNew/findIndex")
+    Observable<HttpResult> newFindIndex(@PartMap Map<String, RequestBody> param);
+
     @Multipart
     @POST("index.php/Api/Find/integralShop")
     Observable<HttpResult> integralShop(@PartMap Map<String, RequestBody> param);
 
+
+    @Multipart
+    @POST("index.php/Api/FindNew/integralShop")
+    Observable<HttpResult> newIntegralShop(@PartMap Map<String, RequestBody> param);
+
     @Multipart
     @POST("index.php/Api/Find/exchangeLog")
     Observable<HttpResult> exchangeLog(@PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST("index.php/Api/FindNew/exchangeLog")
+    Observable<HttpResult> newExchangeLog(@PartMap Map<String, RequestBody> param);
+
+
+    @Multipart
+    @POST("index.php/Api/Member/myExchange")
+    Observable<HttpResult> getMyExchange(@PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST("index.php/Api/Member/myIntegral")
+    Observable<HttpResult> getMyIntegral(@PartMap Map<String, RequestBody> param);
+
+    @Multipart
+    @POST("index.php/Api/Member/myDegree")
+    Observable<HttpResult> getMyDegree(@PartMap Map<String, RequestBody> param);
 
     @Multipart
     @POST("index.php/Api/Address/getOneAddress")
@@ -223,6 +250,14 @@ public interface HttpService {
     @FormUrlEncoded
     @POST("index.php/Api/Article/payDescription")
     Observable<HttpResult> payDescription(@FieldMap Map<String, String> param);
+
+    @FormUrlEncoded
+    @POST("index.php/Api/Article/integralRule")
+    Observable<HttpResult> getIntegralRule(@FieldMap Map<String, String> param);
+
+    @FormUrlEncoded
+    @POST("index.php/Api/Article/degreeRule")
+    Observable<HttpResult> getDegreeRule(@FieldMap Map<String, String> param);
 
     @Multipart
     @POST("index.php/Api/Order/orderList")

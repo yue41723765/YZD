@@ -166,7 +166,7 @@ public class DetailsActivity extends BaseActivity {
 //        address_recycler.setAdapter(recyclerAdapter);
 
         List<String> list = new ArrayList<>();
-        list.add("上面安装");
+        list.add("上门安装");
         list.add("三年质保");
         list.add("假一赔五");
 

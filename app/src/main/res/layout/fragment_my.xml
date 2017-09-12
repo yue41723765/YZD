@@ -89,11 +89,13 @@
                 android:layout_height="134px">
                  <!--等级-->
                 <LinearLayout
+                    android:id="@+id/my_grade_layout"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="134px">
+                    android:layout_height="134px"
+                    android:onClick="onClick">
 
                     <TextView
                         android:id="@+id/tv_my_grade"
@@ -117,11 +119,13 @@
                     android:layout_gravity="center"/>
                 <!--积分-->
                 <LinearLayout
+                    android:id="@+id/my_integral_layout"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="134px">
+                    android:layout_height="134px"
+                    android:onClick="onClick">
 
                     <TextView
                         android:id="@+id/tv_my_integral"
@@ -146,11 +150,13 @@
 
                 <!--已兑换-->
                 <LinearLayout
+                    android:id="@+id/my_convert_layout"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="134px">
+                    android:layout_height="134px"
+                    android:onClick="onClick">
 
                     <TextView
                         android:id="@+id/tv_my_convert"

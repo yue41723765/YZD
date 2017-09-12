@@ -12,9 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.yzd.R;
-import com.android.yzd.been.FindEntity;
-import com.android.yzd.been.GoodsListBean;
-import com.android.yzd.been.IntegralListBean;
+import com.android.yzd.been.NewFindEntity;
+import com.android.yzd.been.NewIntegralListBean;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
 import com.android.yzd.tools.DensityUtils;
@@ -57,6 +56,7 @@ public class FindFragment extends BaseFragment {
 
    // CommonAdapter adapter_1;
     CommonAdapter adapter_2;
+    private int p=1;
 
     @Override
     public int getContentViewId() {
@@ -96,9 +96,9 @@ public class FindFragment extends BaseFragment {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                FindEntity findEntity = gson.fromJson(gson.toJson(o), FindEntity.class);
+                NewFindEntity findEntity = gson.fromJson(gson.toJson(o), NewFindEntity.class);
                 //setBoutiqueRecommend(findEntity.getGoods_list());
-                setIntegralAdapter(findEntity.getIntegral_list());
+                setIntegralAdapter(findEntity.getCoupon_list());
 
                 if (findEntity.getNot_read().equals("1")) {
                     findMessage.setImageResource(R.mipmap.home_message_);
@@ -110,18 +110,19 @@ public class FindFragment extends BaseFragment {
         setProgressSubscriber(onNextListener);
         builder.clear();
         builder.addParameter("m_id", m_id);
-        HttpMethods.getInstance(context).findIndex(progressSubscriber, builder.bulider());
+        builder.addParameter("p", p+"");
+        HttpMethods.getInstance(context).newFindIndex(progressSubscriber, builder.bulider());
     }
 
     //积分
-    private void setIntegralAdapter(final List<IntegralListBean> integral_list) {
-        adapter_2 = new CommonAdapter<IntegralListBean>(context, R.layout.item_find_2, integral_list) {
+    private void setIntegralAdapter(final List<NewIntegralListBean> integral_list) {
+        adapter_2 = new CommonAdapter<NewIntegralListBean>(context, R.layout.item_find_2, integral_list) {
 
             @Override
-            protected void convert(ViewHolder holder, IntegralListBean s, final int position) {
-                Picasso.with(context).load(s.getGoods_logo()).into((ImageView) holder.getView(R.id.find_image));
-                holder.setText(R.id.find_title,"有限期至："+ s.getGoods_name());
-                holder.setText(R.id.find_content, s.getGoods_brief());
+            protected void convert(ViewHolder holder, NewIntegralListBean s, final int position) {
+                //Picasso.with(context).load(s.get()).into((ImageView) holder.getView(R.id.find_image));
+                holder.setText(R.id.find_title,"有效期为："+ s.getExpired_day()+"天");
+                holder.setText(R.id.find_content, s.getCou_value()+"元");
                 holder.setText(R.id.find_integral, s.getNeed_integral()+"积分兑换");
 
                 holder.setOnClickListener(R.id.conversion, new View.OnClickListener() {

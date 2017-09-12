@@ -6,44 +6,47 @@
     <ImageView
         android:id="@+id/find_image"
         android:layout_width="match_parent"
-        android:layout_height="382px"
+        android:layout_height="127dp"
         android:layout_marginTop="@dimen/_15px"
         android:layout_marginLeft="@dimen/_26px"
         android:layout_marginRight="@dimen/_26px"
-        android:layout_marginBottom="@dimen/_15px" />
+        android:layout_marginBottom="@dimen/_15px"
+        android:background="@drawable/discount_coupon"/>
 
     <RelativeLayout
         android:id="@+id/item_find_parent"
         android:layout_width="match_parent"
-        android:layout_height="382px"
+        android:layout_height="127dp"
         android:layout_marginTop="@dimen/_15px"
         android:layout_marginLeft="@dimen/_26px"
         android:layout_marginRight="@dimen/_26px"
         android:layout_marginBottom="@dimen/_15px">
+
 
          <!--有限期-->
         <TextView
             android:id="@+id/find_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="168px"
-            android:layout_marginLeft="89px"
+            android:layout_marginTop="56dp"
+            android:layout_marginLeft="@dimen/_89px"
             android:text="有限期至："
             android:textColor="@color/black_60"
             android:textSize="@dimen/_24spx" />
 
-        <!--使用次数-->
+        <!--面值-->
         <TextView
             android:id="@+id/find_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="290px"
-            android:layout_marginLeft="89px"
+            android:layout_marginTop="33dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_86px"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="内容"
-            android:textColor="@color/black_90"
-            android:textSize="@dimen/_28spx" />
+            android:text="$10"
+            android:textColor="@color/red_52"
+            android:textSize="@dimen/_48spx" />
 
         <!--兑换按钮-->
         <Button
@@ -51,7 +54,7 @@
             android:layout_width="194px"
             android:layout_height="59px"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="284px"
+            android:layout_marginTop="94dp"
             android:layout_marginRight="@dimen/_56px"
             android:background="@mipmap/convert_btn"
             android:text="兑换"
@@ -63,8 +66,8 @@
             android:id="@+id/find_integral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="168px"
-            android:layout_marginRight="56px"
+            android:layout_marginTop="56dp"
+            android:layout_marginRight="@dimen/_56px"
             android:text="积分兑换"
             android:textColor="@color/black_60"
             android:textSize="@dimen/_36spx"

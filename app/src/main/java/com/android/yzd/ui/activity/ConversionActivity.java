@@ -6,7 +6,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 
 import com.android.yzd.R;
-import com.android.yzd.been.IntergralHistoryEntity;
+import com.android.yzd.been.ExchangeLogBean;
 import com.android.yzd.been.UserInfoEntity;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
@@ -36,7 +36,7 @@ public class ConversionActivity extends BaseActivity {
     CommonAdapter adapter;
     UserInfoEntity userInfo;
     int p = 1;
-    List<IntergralHistoryEntity> historyEntity = new ArrayList<>();
+    List<ExchangeLogBean> historyEntity = new ArrayList<>();
     int lastVisibleItem = -1;
     boolean isData = true;
 
@@ -80,15 +80,10 @@ public class ConversionActivity extends BaseActivity {
     }
 
     private void setAdapter() {
-        adapter = new CommonAdapter<IntergralHistoryEntity>(this, R.layout.item_history, historyEntity) {
+        adapter = new CommonAdapter<ExchangeLogBean>(this, R.layout.item_history, historyEntity) {
             @Override
-            protected void convert(ViewHolder holder, IntergralHistoryEntity s, int position) {
-                if (s.getStatus() == 0) {
-                    holder.setText(R.id.history_status, "待处理");
-                } else {
-                    holder.setText(R.id.history_status, "兑换成功");
-                }
-                holder.setText(R.id.history_name, s.getGoods_name());
+            protected void convert(ViewHolder holder, ExchangeLogBean s, int position) {
+                holder.setText(R.id.history_name, s.getCou_value()+"元优惠券*"+s.getNum());
                 holder.setText(R.id.integral_number, "-" + s.getUse_integral());
                 holder.setText(R.id.history_date, U.timeStampToStr(s.getCreate_time()));
             }
@@ -102,7 +97,7 @@ public class ConversionActivity extends BaseActivity {
             SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
                 @Override
                 public void onNext(Object o) {
-                    List<IntergralHistoryEntity> list = gson.fromJson(gson.toJson(o), new TypeToken<List<IntergralHistoryEntity>>() {
+                    List<ExchangeLogBean> list = gson.fromJson(gson.toJson(o), new TypeToken<List<ExchangeLogBean>>() {
                     }.getType());
                     historyEntity.addAll(list);
                     adapter.notifyDataSetChanged();
@@ -112,11 +107,10 @@ public class ConversionActivity extends BaseActivity {
                 }
             };
             setProgressSubscriber(onNextListener);
-            httpParamet.addParameter("m_id", userInfo.getM_id());
-            httpParamet.addParameter("p", p + "");
-            HttpMethods.getInstance(this).exchangeLog(progressSubscriber, httpParamet.bulider());
+            httpParamet.addParameter("m_id",userInfo.getM_id());
+            httpParamet.addParameter("p", String.valueOf(p));
+            HttpMethods.getInstance(this).newExchangeLog(progressSubscriber, httpParamet.bulider());
         }
-
     }
 
     @Override

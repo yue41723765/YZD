@@ -617,6 +617,16 @@ public class HttpMethods {
     }
 
     /**
+     *新发现首页
+     *
+     * @param subscriber
+     */
+    public void newFindIndex(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.newFindIndex(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+    /**
      * 积分商城
      *
      * @param subscriber
@@ -628,12 +638,66 @@ public class HttpMethods {
     }
 
     /**
+     * 新积分商城
+     *
+     * @param subscriber
+     */
+    public void newIntegralShop(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.newIntegralShop(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
      * 积分兑换记录
      *
      * @param subscriber
      */
     public void exchangeLog(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
         Observable observable = httpService.exchangeLog(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+    /**
+     * 新积分兑换记录
+     *
+     * @param subscriber
+     */
+    public void newExchangeLog(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.newExchangeLog(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 兑换次数
+     *
+     * @param subscriber
+     */
+    public void getMyExchange(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.getMyExchange(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 我的积分
+     *
+     * @param subscriber
+     */
+    public void getMyIntegral(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.getMyIntegral(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 我的等级
+     *
+     * @param subscriber
+     */
+    public void getMyDegree(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.getMyDegree(param)
                 .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }
@@ -699,6 +763,27 @@ public class HttpMethods {
      */
     public void payDescription(Subscriber<HttpResult> subscriber) {
         Observable observable = httpService.payDescription(new HashMap<String, String>())
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+    /**
+     * 积分规则
+     *
+     * @param subscriber
+     */
+    public void getIntegralRule(Subscriber<HttpResult> subscriber) {
+        Observable observable = httpService.getIntegralRule(new HashMap<String, String>())
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 等级规则
+     *
+     * @param subscriber
+     */
+    public void getDegreeRule(Subscriber<HttpResult> subscriber) {
+        Observable observable = httpService.getDegreeRule(new HashMap<String, String>())
                 .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }

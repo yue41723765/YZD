@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.yzd.R;
-import com.android.yzd.been.IntegralEsEntity;
-import com.android.yzd.been.IntegralListBean;
+import com.android.yzd.been.NewIntegralEsEntity;
+import com.android.yzd.been.NewIntegralListBean;
 import com.android.yzd.been.QuestionEntity;
 import com.android.yzd.been.UserInfoEntity;
 import com.android.yzd.http.HttpMethods;
@@ -57,7 +57,7 @@ public class IntegralActivity extends BaseActivity {
     List<View> views = new ArrayList<>();
     int p = 1;
     UserInfoEntity userinfo;
-    List<IntegralListBean> integral_list = new ArrayList<>();
+    List<NewIntegralListBean> integral_list = new ArrayList<>();
     int lastVisibleItem = -1;
     boolean isData = true;
 
@@ -102,13 +102,13 @@ public class IntegralActivity extends BaseActivity {
     }
 
     private void setAdapter() {
-        adapter_2 = new CommonAdapter<IntegralListBean>(this, R.layout.item_find_2, integral_list) {
+        adapter_2 = new CommonAdapter<NewIntegralListBean>(this, R.layout.item_find_2, integral_list) {
 
             @Override
-            protected void convert(ViewHolder holder, IntegralListBean s, final int position) {
-                Picasso.with(IntegralActivity.this).load(s.getGoods_logo()).into((ImageView) holder.getView(R.id.find_image));
-                holder.setText(R.id.find_title, s.getGoods_name());
-                holder.setText(R.id.find_content, s.getGoods_brief());
+            protected void convert(ViewHolder holder, NewIntegralListBean s, final int position) {
+                //Picasso.with(IntegralActivity.this).load(s.getGoods_logo()).into((ImageView) holder.getView(R.id.find_image));
+                holder.setText(R.id.find_title, "有效期为："+s.getExpired_day()+"天");
+                holder.setText(R.id.find_content, "￥"+s.getCou_value());
                 holder.setText(R.id.find_integral, s.getNeed_integral());
 
                 holder.setOnClickListener(R.id.conversion, new View.OnClickListener() {
@@ -129,10 +129,10 @@ public class IntegralActivity extends BaseActivity {
             SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
                 @Override
                 public void onNext(Object o) {
-                    IntegralEsEntity esEntity = gson.fromJson(gson.toJson(o), IntegralEsEntity.class);
-                    integral_list.addAll(esEntity.getIntegral_list());
+                    NewIntegralEsEntity esEntity = gson.fromJson(gson.toJson(o), NewIntegralEsEntity.class);
+                    integral_list.addAll(esEntity.getCoupon_list());
                     adapter_2.notifyDataSetChanged();
-                    if (esEntity.getIntegral_list().size() == 0)
+                    if (esEntity.getCoupon_list().size() == 0)
                         isData = false;
 
                     integralNumber.setText(esEntity.getIntegral() + "");
@@ -141,7 +141,7 @@ public class IntegralActivity extends BaseActivity {
             setProgressSubscriber(onNextListener);
             httpParamet.addParameter("m_id", userinfo.getM_id());
             httpParamet.addParameter("p", p + "");
-            HttpMethods.getInstance(this).integralShop(progressSubscriber, httpParamet.bulider());
+            HttpMethods.getInstance(this).newIntegralShop(progressSubscriber, httpParamet.bulider());
         }
     }
 
@@ -149,11 +149,13 @@ public class IntegralActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            //如何获取更多积分
             case R.id.integral_getIntegral:
 //                intent = new Intent(this, IntegralQuestionActivity.class);
 //                startActivity(intent);
                 getQuestionList();
                 break;
+            //兑换记录
             case R.id.integral_history:
                 intent = new Intent(this, ConversionActivity.class);
                 startActivity(intent);
