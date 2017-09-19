@@ -38,6 +38,7 @@
 
     <color name="green">#2CD379</color>
     <!--半透明-->
+    <color name="transparent_a">#00000000</color>
     <color name="transparent_all">#01000000</color>
     <color name="translucence_a">#A0000000</color>
     <color name="translucence_b">#B0000000</color>

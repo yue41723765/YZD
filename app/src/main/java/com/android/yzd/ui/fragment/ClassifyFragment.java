@@ -31,6 +31,7 @@ import com.android.yzd.ui.activity.MessageManagerActivity;
 import com.android.yzd.ui.custom.BaseFragment;
 import com.android.yzd.ui.view.RecyclerViewItemDecoration;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
+import com.bumptech.glide.Glide;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -122,6 +123,7 @@ public class ClassifyFragment extends BaseFragment {
                     setContentAdapter(list.get(0).getSec_list());
                 }
 
+
                 for (int i = 0; i < list.size(); i++) {
                     if (i == 0) {
                         isCheck.put(i, true);
@@ -141,6 +143,11 @@ public class ClassifyFragment extends BaseFragment {
             protected void convert(ViewHolder holder, ClassifyToolsEntity classifyInfo, int position) {
                 CheckBox checkBox = holder.getView(R.id.checkbox);
                 checkBox.setText(classifyInfo.getType_name());
+                if (isCheck.containsKey(position)) {
+                    checkBox.setChecked(true);
+                } else {
+                    isCheck.put(position, true);
+                }
                 checkBox.setChecked(isCheck.get(position));
             }
         };
@@ -184,7 +191,7 @@ public class ClassifyFragment extends BaseFragment {
             protected void convert(ViewHolder holder, SecListBean classifyInfo, int position) {
                 holder.setText(R.id.item_title, classifyInfo.getType_name());
                 if (!classifyInfo.getType_pic().isEmpty())
-                    Picasso.with(context).load(classifyInfo.getType_pic()).into((ImageView) holder.getView(R.id.item_image));
+                    Glide.with(context).load(classifyInfo.getType_pic()).into((ImageView) holder.getView(R.id.item_image));
             }
         };
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {

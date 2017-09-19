@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_a">
+
+    <LinearLayout
+        android:background="@drawable/ripple_round_white"
+        android:padding="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/share_background_top"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:text="恭喜你购买成功"
+            android:gravity="center"
+            android:textSize="@dimen/_48spx"
+            android:textColor="#756d6d"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="分享还有好礼相送"
+            android:gravity="center"
+            android:textSize="@dimen/_33spx"
+            android:textColor="#756d6d"/>
+        <LinearLayout
+            android:id="@+id/share_dialog_btn"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@color/green"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享到"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_35spx" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/wechat_white"
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/share_dialog_icon"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

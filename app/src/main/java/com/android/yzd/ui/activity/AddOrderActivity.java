@@ -31,6 +31,7 @@ import com.android.yzd.tools.SPUtils;
 import com.android.yzd.tools.T;
 import com.android.yzd.ui.custom.BaseActivity;
 import com.android.yzd.ui.view.TitleBarView;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -104,21 +105,16 @@ public class AddOrderActivity extends BaseActivity {
     UserInfoEntity userInfo;
     AddressEntity addressEntity;
     Float delivery_price;//运费
-    String deliveryPrice;//运费
     float total = 0;
 
     CouponEntity entity;
 
-    //test
-    private String ob;
-    //小件运费
-    private String small_delivery_fee;
-    //大件运费
-    private String big_delivery_fee;
 
     String addressId;
+    String modelsType;
 
-    private DeliverFeeEntity.DataBean delivery_data;
+    int GoodsNum = 0;
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_add_order;
@@ -131,45 +127,19 @@ public class AddOrderActivity extends BaseActivity {
         goodsBeanList = getIntent().getParcelableArrayListExtra(K.DATA);
         userInfo = (UserInfoEntity) SPUtils.get(this, K.USERINFO, UserInfoEntity.class);
 
-
-        int GoodsNum = 0;
-
         for (CartListBean cart : goodsBeanList) {
             GoodsNum += cart.getNumber();
             total += cart.getGoods_price() * cart.getNumber();
         }
-        //判断运费的大小件-屏蔽原因是因为retrofit不可用
-       //getDeliveryFee();
         for (CartListBean models:goodsBeanList){
             if ("1".equals(models.getModels_type())){
-               // deliveryPrice=big_delivery_fee;
-                deliveryPrice="38";
+                modelsType=models.getModels_type();
                 break;
             }else {
-                //deliveryPrice=small_delivery_fee;
-                deliveryPrice="19";
+                modelsType=models.getModels_type();
             }
         }
-        if (total>=1000){
-            deliveryPrice="0";
-        }
-        //保留两位小数
-        if (deliveryPrice==null||"".equals(deliveryPrice)){
-            delivery_price=0.0f;
-        }else {
-            delivery_price=Float.parseFloat(deliveryPrice);
-        }
-        orderFreight.setText("+￥" + deliveryPrice);
-        DecimalFormat df = new DecimalFormat("#.##");
-        String allPrice = "￥" + df.format(total + delivery_price);
-        orderAllPrice.setText(allPrice);
-        bottomAllPrice.setText(allPrice);
-
-
-        goodsNumber.setText("共" + GoodsNum + "件商品");
-        bottomGoodsNumber.setText(GoodsNum + "");
-
-
+        getDeliveryFee();
         init();
         setAdapter();
         getAddressInfo();
@@ -210,7 +180,6 @@ public class AddOrderActivity extends BaseActivity {
                 break;
             case R.id.order_sure:
                 intent = new Intent(this, PayActivity.class);
-                //addOrder();
                 if (addressEntity == null) {
                     T.show(this, "请选择地址!", Toast.LENGTH_SHORT);
                     return;
@@ -230,8 +199,9 @@ public class AddOrderActivity extends BaseActivity {
                 intent.putExtra("address_id",addressEntity.getAddress_id());
                 Float allPrice = total + delivery_price;
                 intent.putExtra("money",allPrice);
-                intent.putExtra("delivery_price",deliveryPrice);
+                intent.putExtra("delivery_price",delivery_price.toString());
                 startActivity(intent);
+                finish();
                 //addOrder(ids.toString(), addressEntity.getAddress_id());
                 break;
             case R.id.discount_coupon:
@@ -253,7 +223,6 @@ public class AddOrderActivity extends BaseActivity {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                ob= (String) o;
                 orderEntity= gson.fromJson(gson.toJson(o), PayAddOrderEntity.DataBean.class);
                 if (orderEntity.getOrder_id()!=null) {
                     order_id=orderEntity.getOrder_id();
@@ -271,7 +240,7 @@ public class AddOrderActivity extends BaseActivity {
         httpParamet.addParameter("address_id", address_id);
         httpParamet.addParameter("m_c_id", entity.getM_c_id());
         httpParamet.addParameter("remark", orderRemark.getText().toString());
-        httpParamet.addParameter("delivery_price",deliveryPrice);
+        httpParamet.addParameter("delivery_price",delivery_price.toString());
         HttpMethods.getInstance(AddOrderActivity.this).addPayOrder(progressSubscriber, httpParamet.bulider());
     }
 
@@ -364,16 +333,42 @@ public class AddOrderActivity extends BaseActivity {
         SubscriberOnNextListener onNextListener=new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                ob= (String) o;
-                L.i("TAG","-----------"+o);
-                delivery_data=gson.fromJson(gson.toJson(o), DeliverFeeEntity.DataBean.class);
-                if (delivery_data!=null){
-                    small_delivery_fee=delivery_data.getSmall_delivery_fee();
-                    big_delivery_fee=delivery_data.getBig_delivery_fee();
-                }
+                DeliverFeeEntity delivery_data=gson.fromJson(gson.toJson(o), DeliverFeeEntity.class);
+                String small_delivery_fee=delivery_data.getSmall_delivery_fee();
+                String big_delivery_fee=delivery_data.getBig_delivery_fee();
+                String delivery_fee_limit=delivery_data.getFree_delivery_fee_limit();
+                orderFreight.setText("+￥" + delivery_fee_limit);
+                setDeliveryFee(small_delivery_fee,big_delivery_fee,delivery_fee_limit);
             }
         };
         setProgressSubscriber(onNextListener);
         HttpMethods.getInstance(AddOrderActivity.this).getDeliveryFee(progressSubscriber);
+    }
+
+    private void setDeliveryFee(String s,String b,String l) {
+        if ("1".equals(modelsType)){
+            orderFreight.setText("+￥" + b);
+            delivery_price=Float.parseFloat(b);
+        }else {
+            orderFreight.setText("+￥" + s);
+            delivery_price=Float.parseFloat(s);
+        }
+        int limit=Integer.valueOf(l);
+        if (total>=limit){
+            orderFreight.setText("+￥" + "0");
+            delivery_price=Float.parseFloat("0");
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        String allPrice = "￥" + df.format(total + delivery_price);
+        orderAllPrice.setText(allPrice);
+        bottomAllPrice.setText(allPrice);
+        goodsNumber.setText("共" + GoodsNum + "件商品");
+        bottomGoodsNumber.setText(GoodsNum + "");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDeliveryFee();
     }
 }

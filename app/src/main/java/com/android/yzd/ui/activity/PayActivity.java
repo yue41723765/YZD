@@ -281,6 +281,4 @@ public class PayActivity extends BaseActivity {
         //    api.registerApp(Constants.APP_ID);
         api.sendReq(req);
     }
-
-
 }

@@ -385,11 +385,9 @@ public class LoginActivity extends BaseActivity {
 
     private void loginThree(String openId,String nickname,File mHead,String s) {
         setProgressSubscriber(getQQLoginListener);
-        httpParamet.clear();
-        //必须品不能错
         httpParamet.addParameter("openid",openId);
         httpParamet.addParameter("nickname",nickname);
-        httpParamet.addParameter("head_pic",mHead);
+        httpParamet.addParameter("head_pic[0]",mHead);
         httpParamet.addParameter("account_type",s);
         HttpMethods.getInstance(LoginActivity.this).getThreeLogin(progressSubscriber,httpParamet.bulider());
     }

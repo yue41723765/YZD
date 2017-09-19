@@ -25,6 +25,7 @@ import com.android.yzd.ui.activity.MyGradeActivity;
 import com.android.yzd.ui.activity.MyInfoActivity;
 import com.android.yzd.ui.activity.OrderActivity;
 import com.android.yzd.ui.activity.SetActivity;
+import com.android.yzd.ui.activity.TestActivity;
 import com.android.yzd.ui.activity.WalletActivity;
 import com.android.yzd.ui.custom.BaseFragment;
 import com.android.yzd.ui.view.CircleImageView;
@@ -152,7 +153,7 @@ public class MyFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.my_convert_layout:
-                intent=new Intent(getContext(), MyExchangeActivity.class);
+                intent=new Intent(getContext(), MyGradeActivity.class);
                 intent.putExtra("CHOOSE","Convert");
                 startActivity(intent);
                 break;

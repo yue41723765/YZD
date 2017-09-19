@@ -243,25 +243,26 @@ public class MyInfoActivity extends BaseActivity {
     }
 
     private void showShare() {
-            OnekeyShare oks = new OnekeyShare();
+        OnekeyShare oks = new OnekeyShare();
              //关闭sso授权
             oks.disableSSOWhenAuthorize();
             // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
-            oks.setTitle("一站达建材商城");
+            //oks.setTitle("一站达建材商城");
             // titleUrl是标题的网络链接，QQ和QQ空间等使用
-            oks.setTitleUrl("http://www.tjyizhanda.com");
+            //oks.setTitleUrl("http://www.tjyizhanda.com");
             // text是分享文本，所有平台都需要这个字段
-            oks.setText("家装辅材，一站购齐，就在一站达！我的邀请码为："+myInfo.getInvite_code()+"首次注册好礼多多，不一样的网上建材辅料APP");
+            //oks.setText("家装辅材，一站购齐，就在一站达！我的邀请码为："+myInfo.getInvite_code()+"首次注册好礼多多，不一样的网上建材辅料APP");
+            oks.setText(myInfo.getInvite_code());
              // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-            //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+            //oks.setImageUrl("http://www.tjyizhanda.com");//确保SDcard下面存在此张图片
              // url仅在微信（包括好友和朋友圈）中使用
-            oks.setUrl("http://www.tjyizhanda.com");
+            //oks.setUrl("http://www.tjyizhanda.com");
              // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-            oks.setComment("特别好用的软件哟！");
+            //oks.setComment("特别好用的软件哟！");
             // site是分享此内容的网站名称，仅在QQ空间使用
-            oks.setSite(getString(R.string.app_name));
+            //oks.setSite(getString(R.string.app_name));
             // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-            oks.setSiteUrl("http://www.tjyizhanda.com");
+            //oks.setSiteUrl("http://www.tjyizhanda.com");
              // 启动分享GUI
             oks.show(this);
     }

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -301,6 +302,20 @@ public class HttpMethods {
                 .map(new HttpResultFunc());
         toSubscribe(observable, subscriber);
     }
+
+
+    /**
+     * 第三方登录
+     *
+     * @param subscriber
+     * @param param
+     */
+    public void getThreeLogin(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.threeLogin(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
 
     /**
      * 优惠券列表
@@ -931,15 +946,4 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
-    /**
-     * 第三方登录
-     *
-     * @param subscriber
-     * @param param
-     */
-    public void getThreeLogin(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
-        Observable observable = httpService.threeLogin(param)
-                .map(new HttpResultFunc());
-        toSubscribe(observable, subscriber);
-    }
 }
