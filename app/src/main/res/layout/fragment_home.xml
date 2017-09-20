@@ -86,21 +86,21 @@
                     app:layout_scrollFlags="scroll|snap"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                    <!--   <com.android.yzd.ui.view.AutoScrollViewPager
+                       <com.android.yzd.ui.view.AutoScrollViewPager
                         android:id="@+id/home_viewPage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />-->
-                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        android:layout_height="match_parent" />
+                    <!--<com.bigkoo.convenientbanner.ConvenientBanner
                         android:id="@+id/home_viewPage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:canLoop="true"></com.bigkoo.convenientbanner.ConvenientBanner>
-                    <!--  <me.relex.circleindicator.CircleIndicator
+                        app:canLoop="true"></com.bigkoo.convenientbanner.ConvenientBanner>-->
+                      <me.relex.circleindicator.CircleIndicator
                         android:id="@+id/home_circle"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginBottom="20dp" />-->
+                        android:layout_marginBottom="20dp" />
                 </FrameLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>

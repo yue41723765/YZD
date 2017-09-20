@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -143,12 +144,18 @@ public class ClassifyFragment extends BaseFragment {
             protected void convert(ViewHolder holder, ClassifyToolsEntity classifyInfo, int position) {
                 CheckBox checkBox = holder.getView(R.id.checkbox);
                 checkBox.setText(classifyInfo.getType_name());
-                if (isCheck.containsKey(position)) {
-                    checkBox.setChecked(true);
-                } else {
-                    isCheck.put(position, true);
+                if (!isCheck.containsKey(position)) {
+                    isCheck.put(position, false);
                 }
+                checkBox.setTag(position);
                 checkBox.setChecked(isCheck.get(position));
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        int position = (int) buttonView.getTag();
+                        isCheck.put(position,isChecked);
+                    }
+                });
             }
         };
 
