@@ -71,7 +71,8 @@ public class PayResultActivity extends BaseActivity {
         String wxResult=intent.getStringExtra("WXResult");
         if ("arr".equals(result)){
             payTv.setText("已成功下单,请保持手机通畅");
-            payImg.setVisibility(View.INVISIBLE);
+            payImg.setImageResource(R.mipmap.balance);
+            useDialog();
         }else  if ("0".equals(result)){
             payTv.setText("支付失败");
             payImg.setImageResource(R.mipmap.alipay);
@@ -108,7 +109,7 @@ public class PayResultActivity extends BaseActivity {
     }
    //弹出死丑窗口
     private void useDialog() {
-        Dialog dialog=new Dialog(this,R.style.Theme_AppCompat_Dialog);
+        Dialog dialog=new Dialog(this);
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setAttributes(lp);

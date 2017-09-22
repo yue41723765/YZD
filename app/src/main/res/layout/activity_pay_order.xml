@@ -67,8 +67,8 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-<!--
         <RadioButton
+            android:checked="true"
             android:id="@+id/pay_balance"
             android:layout_width="match_parent"
             android:layout_height="46dp"
@@ -84,10 +84,8 @@
             android:text="货到付款"
             android:textColor="@color/black_30"
             android:textSize="12sp" />
--->
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/pay_wechate"
             android:layout_width="match_parent"
             android:layout_height="46dp"

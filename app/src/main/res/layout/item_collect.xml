@@ -54,6 +54,24 @@
 
 
         <TextView
+            android:id="@+id/add_shoppingCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/cancel_collect"
+            android:background="@drawable/round_line_orange"
+            android:clickable="true"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginRight="2dp"
+            android:paddingTop="5dp"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"/>
+
+
+        <TextView
             android:id="@+id/cancel_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

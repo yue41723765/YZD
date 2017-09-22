@@ -10,6 +10,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.yzd.R;
@@ -97,6 +98,12 @@ public class CollectActivity extends BaseActivity {
                         builder.create().show();
                     }
                 });
+                holder.setOnClickListener(R.id.add_shoppingCart, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addCart(s.getGoods_id());
+                    }
+                });
             }
         };
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
@@ -159,6 +166,20 @@ public class CollectActivity extends BaseActivity {
         httpParamet.addParameter("m_id", userInfo.getM_id());
         HttpMethods.getInstance(this).deleteCollect(progressSubscriber, httpParamet.bulider());
 
+    }
+
+    private void addCart(String goods_id) {
+        SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                T.show(CollectActivity.this, "添加购物车成功", Toast.LENGTH_SHORT);
+            }
+        };
+        setProgressSubscriber(onNextListener);
+        httpParamet.clear();
+        httpParamet.addParameter("m_id", userInfo.getM_id());
+        httpParamet.addParameter("goods_id", goods_id);
+        HttpMethods.getInstance(this).addCart(progressSubscriber, httpParamet.bulider());
     }
 
     @Override

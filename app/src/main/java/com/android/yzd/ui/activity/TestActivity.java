@@ -55,7 +55,7 @@ public class TestActivity extends BaseActivity  {
     }
 
     private void useDialog() {
-        Dialog dialog=new Dialog(this,R.style.Theme_AppCompat_Dialog);
+        Dialog dialog=new Dialog(this);
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setAttributes(lp);

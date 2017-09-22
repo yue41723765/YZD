@@ -71,7 +71,7 @@ public class PayActivity extends BaseActivity {
     //微信
     private static final String APP_ID="wx5c5be12f9933f83d";
     //公用的
-    private int number=0;
+    private int number=BAOM_ARRIVE_YANZHENG;
     //钱
     private Float money=0.0f;
     private String price=null;
@@ -124,9 +124,9 @@ public class PayActivity extends BaseActivity {
                 case R.id.pay_wechate:
                     number=BAOM_WEIXIN_YANZHENG;
                     break;
-     /*           case R.id.pay_balance:
+                case R.id.pay_balance:
                     number=BAOM_ARRIVE_YANZHENG;
-                    break;*/
+                    break;
                 default:break;
             }
         }
