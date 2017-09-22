@@ -35,6 +35,7 @@ public class AddBankActivity extends BaseActivity {
     @BindView(R.id.status_1)
     LinearLayout status1;
 
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_add_bank;
