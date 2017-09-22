@@ -86,7 +86,10 @@ public class ShoppingCartFragment extends BaseFragment {
     @BindView(R.id.sc_recycler)
     RecyclerView scRecycler;
 
-    SparseBooleanArray isCheck = new SparseBooleanArray();
+    //之前的ischeck都被map替代了，原因是checkbox记不住状态
+    //解决之后懒得改回来了 可以看看文档使用方法改回来http://www.cnblogs.com/RGogoing/p/5095168.html
+    //SparseBooleanArray isCheck = new SparseBooleanArray();
+    private Map<Integer,Boolean> map=new HashMap<>();
 
     CommonAdapter adapter;
     List<CartListBean> cartList = new ArrayList<>();
@@ -101,6 +104,7 @@ public class ShoppingCartFragment extends BaseFragment {
 
     @Override
     protected void onCreateView(Bundle savedInstanceState) {
+        csChooseAll.setChecked(false);
         init();
         setAdapter();
     }
@@ -110,7 +114,6 @@ public class ShoppingCartFragment extends BaseFragment {
             @Override
             public void onNext(Object o) {
                 cartList.clear();
-                isCheck.clear();
                 ScEntity sc = gson.fromJson(gson.toJson(o), ScEntity.class);
                 cartList.addAll(sc.getCart_list());
                 adapter.notifyDataSetChanged();
@@ -125,6 +128,10 @@ public class ShoppingCartFragment extends BaseFragment {
                     csChooseAll.setChecked(false);
                     scTotalPrice.setText("￥" + 0);
                 }
+                for (int i=0;i<cartList.size();i++){
+                    map.put(i,false);
+                }
+
             }
         };
         setProgressSubscriber(onNextListener);
@@ -136,21 +143,35 @@ public class ShoppingCartFragment extends BaseFragment {
     private void setAdapter() {
         adapter = new CommonAdapter<CartListBean>(getContext(), R.layout.item_shopping_cart, cartList) {
             @Override
-            protected void convert(ViewHolder holder, final CartListBean s, final int position) {
+            protected void convert(final ViewHolder holder, final CartListBean s, final int position) {
                 holder.setText(R.id.goods_title, s.getGoods_name());
                 holder.setText(R.id.goods_price, "￥" + s.getGoods_price());
                 holder.setText(R.id.order_buy_number, s.getNumber() + "");
-
-                CheckBox checkBox = holder.getView(R.id.item_check);
-                checkBox.setChecked(isCheck.get(position));
                 Picasso.with(getContext()).load(s.getGoods_logo()).into((ImageView) holder.getView(R.id.image));
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                final CheckBox checkBox = holder.getView(R.id.item_check);
+                if (map.containsKey(position)){
+                    checkBox.setChecked(map.get(position));
+                }else {
+                    checkBox.setChecked(false);
+                }
+
+                checkBox.setChecked(map.get(position));
+                holder.getView(R.id.item_check).setTag(position);
+                checkBox.setTag(position);
+                //添加商品
+                checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        isCheck.put(position, isChecked);
+                    public void onClick(View v) {
+                        if (checkBox.isChecked()){
+                            map.put(position,true);
+                            totalPrice();
+                        }else {
+                            map.put(position,false);
+                            csChooseAll.setChecked(false);
+                        }
                     }
                 });
-                //添加商品
+
                 holder.setOnClickListener(R.id.add, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -210,16 +231,7 @@ public class ShoppingCartFragment extends BaseFragment {
                         });
                     }
                 });
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        isCheck.put(position, isChecked);
-                        totalPrice();
-                        if (!isChecked) {
-                            csChooseAll.setChecked(false);
-                        }
-                    }
-                });
+
             }
         };
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
@@ -320,7 +332,7 @@ public class ShoppingCartFragment extends BaseFragment {
     private void totalPrice() {
         float price = 0;
         for (int i = 0; i < cartList.size(); i++) {
-            if (isCheck.get(i)) {
+            if (map.get(i)) {
                 CartListBean goodsBean = cartList.get(i);
                 price += goodsBean.getNumber() * goodsBean.getGoods_price();
             }
@@ -416,7 +428,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 //结算
                 List<CartListBean> goodsBeanList = new ArrayList<>();
                 for (int i = 0; i < cartList.size(); i++) {
-                    if (isCheck.get(i)) {
+                    if (map.get(i)) {
                         goodsBeanList.add(cartList.get(i));
                     }
                 }
@@ -433,7 +445,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 //收藏
                 List<String> list = new ArrayList<String>();
                 for (int i = 0; i < cartList.size(); i++) {
-                    if (isCheck.get(i)) {
+                    if (map.get(i)) {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("goods_id", cartList.get(i).getGoods_id());
                         list.add(gson.toJson(params));
@@ -450,7 +462,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 //删除
 
                 for (int i = 0; i < cartList.size(); i++) {
-                    if (isCheck.get(i)) {
+                    if (map.get(i)) {
                         //拼装格式，删除操作
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("goods_id", cartList.get(i).getGoods_id());
@@ -471,12 +483,12 @@ public class ShoppingCartFragment extends BaseFragment {
                 boolean isAllCheck = csChooseAll.isChecked();
                 if (isAllCheck) {
                     for (int i = 0; i < cartList.size(); i++) {
-                        isCheck.put(i, true);
+                        map.put(i, true);
                     }
                     adapter.notifyDataSetChanged();
                 } else {
                     for (int i = 0; i < cartList.size(); i++) {
-                        isCheck.put(i, false);
+                        map.put(i, false);
                     }
                     adapter.notifyDataSetChanged();
                 }

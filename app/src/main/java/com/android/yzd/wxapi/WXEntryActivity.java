@@ -96,7 +96,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
             StatusBarUtil.transparencyBar(this);
         }
         ButterKnife.bind(this);
-
     }
 
     @Override
