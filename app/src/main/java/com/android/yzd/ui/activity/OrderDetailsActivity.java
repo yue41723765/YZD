@@ -115,13 +115,13 @@ public class OrderDetailsActivity extends BaseActivity {
                 orderPay.setVisibility(View.VISIBLE);
                 orderCancel.setVisibility(View.VISIBLE);
                 orderCancel.setText("取消订单");
-                orderPay.setText("查看支付方式");
+                orderPay.setText("去支付");
                 orderStatus.setText("待支付");
                 break;
             case "1":
                 orderStatus.setText("待发货");
                 orderCancel.setVisibility(View.VISIBLE);
-                orderCancel.setText("取消订单");
+                orderCancel.setText("申请退款");
                 break;
             case "2":
                 orderStatus.setText("待收货");
@@ -176,21 +176,6 @@ public class OrderDetailsActivity extends BaseActivity {
 
     }
 
-    //查看支付方式
-    private void payDescription() {
-        SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o) {
-                UserRegAgr ura = gson.fromJson(gson.toJson(o), UserRegAgr.class);
-                intent = new Intent(OrderDetailsActivity.this, WebView.class);
-                intent.putExtra(K.DATA, ura);
-                startActivity(intent);
-            }
-        };
-        setProgressSubscriber(onNextListener, false);
-        HttpMethods.getInstance(this).payDescription(progressSubscriber);
-    }
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -198,7 +183,10 @@ public class OrderDetailsActivity extends BaseActivity {
             case R.id.order_pay:
                 switch (orderDetails.getStatus()) {
                     case "0":
-                        payDescription();
+                        Intent intent=new Intent(this, PayActivity.class);
+                        intent.putExtra("order_id",order_id);
+                        intent.putExtra("order_price",orderDetails.getOrder_price());
+                        startActivity(intent);
                         break;
                     case "2":
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -227,10 +215,32 @@ public class OrderDetailsActivity extends BaseActivity {
             case R.id.order_cancel:
                 switch (orderDetails.getStatus()) {
                     case "0":
-                    case "1":
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("提示");
                         builder.setMessage("是否取消订单?");
+                        builder.setNegativeButton("取消", new AlertDialog.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builder.setPositiveButton("确定", new AlertDialog.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                cancelOrder(order_id);
+                            }
+                        });
+
+                        builder.show();
+                        break;
+                    case "1":
+                         builder = new AlertDialog.Builder(this);
+                        builder.setTitle("提示");
+                        builder.setMessage("是否申请退款?");
                         builder.setNegativeButton("取消", new AlertDialog.OnClickListener() {
 
                             @Override
@@ -302,7 +312,7 @@ public class OrderDetailsActivity extends BaseActivity {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {
             @Override
             public void onNext(Object o) {
-                T.show(OrderDetailsActivity.this, "取消订单成功", Toast.LENGTH_SHORT);
+                T.show(OrderDetailsActivity.this, "删除订单成功", Toast.LENGTH_SHORT);
                 intent = new Intent(OrderFragment.REFRESH);
                 sendBroadcast(intent);
                 finish();

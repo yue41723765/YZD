@@ -291,7 +291,9 @@ public class MainActivity extends BaseActivity {
             });
         }
     }
-
+    /*
+       * 更新
+       */
     Version versionInfo;
     private void versionInfo() {
         SubscriberOnNextListener onNextListener = new SubscriberOnNextListener() {

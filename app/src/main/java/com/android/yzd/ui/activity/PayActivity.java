@@ -22,7 +22,9 @@ import com.android.yzd.been.PayGetWxParamEntity;
 import com.android.yzd.http.HttpMethods;
 import com.android.yzd.http.SubscriberOnNextListener;
 import com.android.yzd.tools.AppManager;
+import com.android.yzd.tools.K;
 import com.android.yzd.tools.L;
+import com.android.yzd.tools.SPUtils;
 import com.android.yzd.ui.custom.BaseActivity;
 
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -49,7 +51,6 @@ public class PayActivity extends BaseActivity {
     private String orderInfo;
     //订单编号
     private String orderid;
-    private String findResult;
 
     //获取订单编号参数
     private String m_id, cart_json, address_id, m_c_id, remark;
@@ -80,7 +81,8 @@ public class PayActivity extends BaseActivity {
     private PayAddOrderEntity.DataBean add;
     private PayGetAliParamEntity.DataBean ali;
     private PayGetWxParamEntity.DataBean wx;
-    private PayFindResultEntity.DataBean find;
+
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_pay_order;
@@ -112,7 +114,20 @@ public class PayActivity extends BaseActivity {
         if (orderid==null||"".equals(orderid)){
             initHttpAddOrder();
         }
+        
+        sure_pay.setOnClickListener(onClickListener);
     }
+    //确认订单
+    private View.OnClickListener onClickListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (number){
+                case BAOM_ALI_YANZHENG:  initHttpAli();break;
+                case BAOM_WEIXIN_YANZHENG: initHttpWeiXin();break;
+                case BAOM_ARRIVE_YANZHENG: initHttpArrive();break;
+            }
+        }
+    };
 
     private RadioGroup.OnCheckedChangeListener isPayGroupOnclick=new RadioGroup.OnCheckedChangeListener() {
         @Override
@@ -131,23 +146,6 @@ public class PayActivity extends BaseActivity {
             }
         }
     };
-    //确认订单
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()){
-            case R.id.sure_pay:
-                if (number==BAOM_ALI_YANZHENG){
-                    initHttpAli();
-                }else if (number==BAOM_WEIXIN_YANZHENG){
-                    initHttpWeiXin();;
-                }else if (number==BAOM_ARRIVE_YANZHENG){
-                    intent=new Intent(PayActivity.this,PayResultActivity.class);
-                    intent.putExtra("PayResult","arr");
-                    startActivity(intent);
-                }break;
-        }
-    }
         /*
          * 添加订单号
          *
@@ -159,6 +157,7 @@ public class PayActivity extends BaseActivity {
                 add=gson.fromJson(gson.toJson(o),PayAddOrderEntity.DataBean.class);
                 if (add.getOrder_id()!=null) {
                     orderid = add.getOrder_id();
+                    SPUtils.put(PayActivity.this, K.ORDER_NUMBER,orderid);
                 }else {
                     Toast.makeText(PayActivity.this, "add订单参数不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -198,7 +197,7 @@ public class PayActivity extends BaseActivity {
                     Thread payThread=new Thread(payRunnable);
                     payThread.start();
                 }else {
-                    Toast.makeText(PayActivity.this, "ali订单参数不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PayActivity.this, "订单参数有误，请重试", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -206,6 +205,22 @@ public class PayActivity extends BaseActivity {
         httpParamet.clear();
         httpParamet.addParameter("order_id", orderid);
         HttpMethods.getInstance(this).getAliParam(progressSubscriber,httpParamet.bulider());
+    }
+    /*
+    * 货到付款 前的验证
+    *
+    */
+    private void initHttpArrive() {
+        SubscriberOnNextListener onNextListener=new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                initIntent();
+            }
+        };
+        setProgressSubscriber(onNextListener);
+        httpParamet.clear();
+        httpParamet.addParameter("order_id", orderid);
+        HttpMethods.getInstance(this).cashOnDelivery(progressSubscriber,httpParamet.bulider());
     }
     /*
     * 微信 支付前的验证
@@ -228,7 +243,7 @@ public class PayActivity extends BaseActivity {
                     req.partnerId=wx.getMch_id();
                     toPay();
                 }else {
-                    Toast.makeText(PayActivity.this, "wx订单参数不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PayActivity.this, "订单参数有误，请重试", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -236,30 +251,6 @@ public class PayActivity extends BaseActivity {
         httpParamet.clear();
         httpParamet.addParameter("order_id", orderid);
         HttpMethods.getInstance(this).getWxParam(progressSubscriber,httpParamet.bulider());
-    }
-    /*
-     * 返回结果
-     *
-     */
-    private void initHttpResult() {
-        httpParamet.clear();
-        SubscriberOnNextListener onNextListener=new SubscriberOnNextListener() {
-            @Override
-            public void onNext(Object o) {
-                find=gson.fromJson(gson.toJson(o),PayFindResultEntity.DataBean.class);
-                if (find!=null){
-                    findResult=find.getStatus();
-                    Intent intent=new Intent(PayActivity.this,PayResultActivity.class);
-                    intent.putExtra("PayResult",findResult);
-                    startActivity(intent);
-                }else {
-                    Toast.makeText(PayActivity.this, "find订单参数不能为空", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-        setProgressSubscriber(onNextListener);
-        httpParamet.addParameter("order_id", orderid);
-        HttpMethods.getInstance(this).findPayResult(progressSubscriber,httpParamet.bulider());
     }
 
     //支付端
@@ -269,7 +260,7 @@ public class PayActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
-                    initHttpResult();
+                    initIntent();
                     break;
                 }
                 default:
@@ -277,8 +268,16 @@ public class PayActivity extends BaseActivity {
             }
         };
     };
+
+    private void initIntent() {
+        intent=new Intent(PayActivity.this,PayResultActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void toPay() {
         //    api.registerApp(Constants.APP_ID);
         api.sendReq(req);
     }
+
 }

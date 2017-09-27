@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.os.Environment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,9 +17,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.yzd.R;
+import com.android.yzd.been.PayFindResultEntity;
+import com.android.yzd.http.HttpMethods;
+import com.android.yzd.http.SubscriberOnNextListener;
+import com.android.yzd.tools.K;
+import com.android.yzd.tools.L;
+import com.android.yzd.tools.SPUtils;
 import com.android.yzd.ui.custom.BaseActivity;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -47,6 +55,9 @@ public class PayResultActivity extends BaseActivity {
 
     private IWXAPI api;
     private static final String APP_ID="wx5c5be12f9933f83d";
+
+    private String findResult="获取结果失败";
+    private String orderid=null;
     @Override
     public int getContentViewId() {
         return R.layout.activity_pay_result;
@@ -56,7 +67,7 @@ public class PayResultActivity extends BaseActivity {
     protected void initAllMembersView(Bundle savedInstanceState) {
         api= WXAPIFactory.createWXAPI(this,APP_ID,false);
         api.registerApp(APP_ID);
-
+        orderid= (String) SPUtils.get(PayResultActivity.this, K.ORDER_NUMBER,"");
         title_tools.setNavigationIcon(R.mipmap.arrow_left_white);
         title_tools.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,34 +77,8 @@ public class PayResultActivity extends BaseActivity {
                 finish();
             }
         });
-        intent=getIntent();
-        String result=intent.getStringExtra("PayResult");
-        String wxResult=intent.getStringExtra("WXResult");
-        if ("arr".equals(result)){
-            payTv.setText("已成功下单,请保持手机通畅");
-            payImg.setImageResource(R.mipmap.balance);
-            useDialog();
-        }else  if ("0".equals(result)){
-            payTv.setText("支付失败");
-            payImg.setImageResource(R.mipmap.alipay);
-        }else if ("1".equals(result)){
-            payTv.setText("支付成功");
-            payImg.setImageResource(R.mipmap.alipay);
-            useDialog();
-        }else if ("0".equals(wxResult)){
-            payTv.setText("支付成功");
-            payImg.setImageResource(R.mipmap.wechate);
-            useDialog();
-        }else if ("-1".equals(wxResult)){
-            payTv.setText("支付失败");
-            payImg.setImageResource(R.mipmap.wechate);
-        }else if ("-2".equals(wxResult)){
-            payTv.setText("支付失败");
-            payImg.setImageResource(R.mipmap.wechate);
-        }else {
-            payImg.setVisibility(View.INVISIBLE);
-            payTv.setText("抱歉，查询不到此订单");
-        }
+        //加载数据
+        initHttpResult();
     }
 
     @Override
@@ -126,7 +111,7 @@ public class PayResultActivity extends BaseActivity {
     //开启微信分享
     private void shareSDK() {
         WXWebpageObject wxWebpageObject=new WXWebpageObject();
-        wxWebpageObject.webpageUrl="http://www.tjyizhanda.com";
+        wxWebpageObject.webpageUrl="http://www.tjyizhanda.com/Wap/Index/show.html";
         WXMediaMessage msg=new WXMediaMessage(wxWebpageObject);
         msg.title="一站达";
         msg.description="听说了么，家装建材免费送，价格也比市场价低";
@@ -139,5 +124,38 @@ public class PayResultActivity extends BaseActivity {
         req.message=msg;
         req.scene=SendMessageToWX.Req.WXSceneSession;
         api.sendReq(req);
+    }
+    /*
+ * 返回结果
+ *
+ */
+    private PayFindResultEntity.DataBean find;
+    private void initHttpResult() {
+        if (orderid==null||"".equals(orderid)){
+            Toast.makeText(this, "订单有误，请重试", Toast.LENGTH_SHORT).show();
+            return;}
+        httpParamet.clear();
+        SubscriberOnNextListener onNextListener=new SubscriberOnNextListener() {
+            @Override
+            public void onNext(Object o) {
+                find=gson.fromJson(gson.toJson(o),PayFindResultEntity.DataBean.class);
+                findResult=find.getStatus();
+                initData();
+            }
+        };
+        setProgressSubscriber(onNextListener,true);
+        httpParamet.addParameter("order_id", orderid);
+        HttpMethods.getInstance(this).findPayResult(progressSubscriber,httpParamet.bulider());
+    }
+
+    private void initData() {
+        if ("0".equals(findResult)){
+            payTv.setText("支付失败");
+            payImg.setImageResource(R.drawable.pay_error);
+        }else if ("1".equals(findResult)){
+            payTv.setText("购买成功");
+            payImg.setImageResource(R.drawable.pay_success);
+            useDialog();
+        }
     }
 }

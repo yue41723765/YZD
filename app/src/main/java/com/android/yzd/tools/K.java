@@ -38,9 +38,10 @@ public class K {
 
     public static final String INVITE_CODE = "inviteCode";
     public static final String ISACCOUNT="isaccount";
-
+    public static final String ORDER_NUMBER = "orderNumber";
 
     public static final int REQUEST_IMAGE = 1;
+
 
 
 }

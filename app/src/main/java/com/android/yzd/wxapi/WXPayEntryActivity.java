@@ -73,10 +73,13 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
 	@Override
 	public void onResp(BaseResp resp) {
-		L.d("TAG", "errCode-------" + resp.errCode);
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			Intent intent = new Intent(WXPayEntryActivity.this, PayResultActivity.class);
-			intent.putExtra("WXResult", "" + resp.errCode);
+			//intent.putExtra("WXResult", "" + resp.errCode);
+			startActivity(intent);
+			finish();
+		}else {
+			Intent intent = new Intent(WXPayEntryActivity.this, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}

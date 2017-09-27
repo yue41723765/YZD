@@ -267,9 +267,6 @@
         <activity
             android:name=".ui.activity.MyGradeActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.activity.MyExchangeActivity"
-            android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.activity.TestActivity"
             android:screenOrientation="portrait"/>

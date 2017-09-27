@@ -161,22 +161,26 @@ public class OrderFragment extends BaseFragment implements SwipeRefreshLayout.On
                     case "1":
                         holder.setText(R.id.order_status, "待发货");
                         holder.setVisible(R.id.order_cancel, true);
-                        holder.setText(R.id.order_cancel, "取消订单");
+                        holder.setText(R.id.order_cancel, "申请退款");
+                        holder.setVisible(R.id.order_pay, false);
                         break;
                     case "2":
                         holder.setText(R.id.order_status, "待收货");
                         holder.setVisible(R.id.order_pay, true);
                         holder.setText(R.id.order_pay, "确认收货");
+                        holder.setVisible(R.id.order_cancel, false);
                         break;
                     case "3":
                         holder.setText(R.id.order_status, "已完成");
                         holder.setVisible(R.id.order_cancel, true);
                         holder.setText(R.id.order_cancel, "删除订单");
+                        holder.setVisible(R.id.order_pay, false);
                         break;
                     case "4":
                         holder.setText(R.id.order_status, "已取消");
                         holder.setVisible(R.id.order_cancel, true);
                         holder.setText(R.id.order_cancel, "删除订单");
+                        holder.setVisible(R.id.order_pay, false);
                         break;
                 }
 
@@ -205,11 +209,31 @@ public class OrderFragment extends BaseFragment implements SwipeRefreshLayout.On
                         L.i(s.getStatus());
                         switch (s.getStatus()) {
                             case "0":
-
-                            case "1":
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle("提示");
                                 builder.setMessage("是否取消订单?");
+                                builder.setNegativeButton("取消", new AlertDialog.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                builder.setPositiveButton("确定", new AlertDialog.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        cancelOrder(s.getOrder_id());
+                                    }
+                                });
+                                builder.show();
+                                break;
+                            case "1":
+                                builder = new AlertDialog.Builder(context);
+                                builder.setTitle("提示");
+                                builder.setMessage("是否申请退款?");
                                 builder.setNegativeButton("取消", new AlertDialog.OnClickListener() {
 
                                     @Override

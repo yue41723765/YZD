@@ -324,6 +324,7 @@ public class DetailsActivity extends BaseActivity {
                 intent.putExtra(K.STATUS, 3);
                 sendBroadcast(intent);
                 AppManager.getAppManager().finishActivity(ClassitySearchActivity.class);
+                AppManager.getAppManager().finishActivity(HotActivity.class);
                 finish();
                 break;
             case R.id.details_service:

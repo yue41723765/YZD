@@ -19,7 +19,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/collect_image"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         android:text="标题"
         android:textColor="@color/black_30"
         android:textSize="14sp" />

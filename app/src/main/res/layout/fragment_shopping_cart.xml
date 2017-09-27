@@ -92,7 +92,7 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/line_round_red"
+                android:background="@drawable/round_line_black30"
                 android:onClick="onClick"
                 android:text="删除"
                 android:textSize="14sp" />

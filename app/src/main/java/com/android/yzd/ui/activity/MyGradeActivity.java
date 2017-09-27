@@ -123,7 +123,7 @@ public class MyGradeActivity extends BaseActivity {
             refreshExchangeList();
         }else if ("Integral".equals(choose)){
             titleBar.setText("我的积分");
-            circleTitle.setText("兑换次数");
+            circleTitle.setText("当前积分");
             itemTitle.setText("积分明细");
             setIntegralAdapter();
             refreshIntegralList();

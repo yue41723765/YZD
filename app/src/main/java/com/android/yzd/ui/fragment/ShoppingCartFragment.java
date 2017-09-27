@@ -337,7 +337,6 @@ public class ShoppingCartFragment extends BaseFragment {
                 price += goodsBean.getNumber() * goodsBean.getGoods_price();
             }
         }
-        Log.i("TAG", "price--------------" + price);
         //保留两位小数
         DecimalFormat df = new java.text.DecimalFormat("#.##");
         scTotalPrice.setText("￥" + df.format(price));
@@ -432,8 +431,11 @@ public class ShoppingCartFragment extends BaseFragment {
                         goodsBeanList.add(cartList.get(i));
                     }
                 }
-                if (goodsBeanList.size() == 0) {
-                    T.show(context, "请选择商品", Toast.LENGTH_SHORT);
+                if (goodsBeanList.size() == 0&& cartList.size()>0) {
+                    T.show(context, "你还没有选择宝贝哦！", Toast.LENGTH_SHORT);
+                    return;
+                }else if (goodsBeanList.size()==0&&cartList.size()<=0){
+                    T.show(context,"你还没有添加宝贝哦！",Toast.LENGTH_SHORT);
                     return;
                 }
                 intent = new Intent(context, AddOrderActivity.class);
@@ -454,7 +456,7 @@ public class ShoppingCartFragment extends BaseFragment {
                 if (list.size() > 0) {
                     cartToCollect(list.toString());
                 } else {
-                    T.show(context, "请选中商品", Toast.LENGTH_SHORT);
+                    T.show(context, "你还没有选择宝贝哟！", Toast.LENGTH_SHORT);
                 }
                 break;
             case R.id.delete:
@@ -475,7 +477,7 @@ public class ShoppingCartFragment extends BaseFragment {
                     csChooseAll.setChecked(false);
                     totalPrice();
                 } else {
-                    T.show(context, "请选中商品", Toast.LENGTH_SHORT);
+                    T.show(context, "你还没有选择宝贝哟！", Toast.LENGTH_SHORT);
                 }
 
                 break;

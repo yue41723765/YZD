@@ -64,6 +64,7 @@ import okhttp3.Response;
 public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     public static final String APP_ID = "wx5c5be12f9933f83d";
     private static final String APP_SECRET = "8f371386d414cd350b78162c9752c126";
+    //实际是要保存token的有效期的 写的很匆忙 就不加了
     private static final String WEIXIN_REFRESH_TOKEN_KEY = "wx_refresh_token_key";
     private IWXAPI api;
     private Gson mGson;
@@ -120,7 +121,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     public void onResp(BaseResp baseResp) {
         switch(baseResp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
-                Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
                 SendAuth.Resp sendResp= (SendAuth.Resp) baseResp;
                 if (sendResp != null) {
                     String code = sendResp.code;
@@ -128,15 +129,15 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 }
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                Toast.makeText(this, "失败一次", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                Toast.makeText(this, "失败两次", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             default:
-                Toast.makeText(this, "失败两次", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
         }

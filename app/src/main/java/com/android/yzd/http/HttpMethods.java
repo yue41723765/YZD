@@ -903,6 +903,17 @@ public class HttpMethods {
     }
 
     /**
+     * 请求货到付款
+     *
+     * @param subscriber
+     */
+    public void cashOnDelivery(Subscriber<HttpResult> subscriber, Map<String, RequestBody> param) {
+        Observable observable = httpService.cashOnDelivery(param)
+                .map(new HttpResultFunc());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
      * 请求阿里支付
      *
      * @param subscriber

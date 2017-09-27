@@ -304,6 +304,10 @@ public interface HttpService {
     Observable<HttpResult> addPayOrder(@PartMap Map<String, RequestBody> param);
 
     @Multipart
+    @POST("index.php/Api/Order/cashOnDelivery")
+    Observable<HttpResult> cashOnDelivery(@PartMap Map<String, RequestBody> param);
+
+    @Multipart
     @POST("index.php/Api/Order/getAlipayParameter")
     Observable<HttpResult> getAliParam(@PartMap Map<String, RequestBody> param);
 
